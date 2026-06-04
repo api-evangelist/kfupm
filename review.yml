@@ -1,0 +1,57 @@
+---
+name: King Fahd University of Petroleum & Minerals
+description: King Fahd University of Petroleum & Minerals public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/kfupm/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      KFUPM has no centralized public developer portal. Verified live: the
+      KFUPM ePrints repository serves a working OAI-PMH 2.0 endpoint (Identify
+      returns repositoryName "KFUPM ePrints", protocol 2.0) plus addressable
+      EPrints record and search URLs. The Elsevier Pure research portal exposes
+      the standard Pure Web Services REST API (OpenAPI 3); its versioned
+      endpoint returns HTTP 401, confirming the API exists but is
+      authentication-gated rather than open. The github.com/kfupm org exists but
+      has no public repositories; KFUPM-OSC (student Open Source Club) hosts
+      public code. No endpoints were fabricated; gated and erroring URLs are
+      flagged below.
+    endpoints:
+      - url: https://eprints.kfupm.edu.sa/cgi/oai2?verb=Identify
+        status: 200
+        note: Live OAI-PMH 2.0 Identify response, repositoryName "KFUPM ePrints".
+      - url: https://eprints.kfupm.edu.sa/
+        status: 200
+        note: KFUPM ePrints theses and dissertations repository (EPrints).
+      - url: https://eprints.kfupm.edu.sa/id/eprint/18
+        status: 200
+        note: Addressable EPrints record; public read-only.
+      - url: https://eprints.kfupm.edu.sa/cgi/search
+        status: 200
+        note: EPrints search interface responds.
+      - url: https://pure.kfupm.edu.sa/
+        status: 200
+        note: Elsevier Pure research portal (80k+ publications indexed).
+      - url: https://pure.kfupm.edu.sa/ws/api/524/openapi.json
+        status: 401
+        note: Pure Web Services REST API present but authentication-gated.
+      - url: https://pure.kfupm.edu.sa/ws/oai
+        status: 500
+        note: Pure OAI endpoint configured but errors without valid params.
+      - url: https://www.kfupm.edu.sa/
+        status: 200
+        note: Official university website.
+      - url: https://library-web.kfupm.edu.sa/
+        status: 200
+        note: KFUPM Library web; no documented public API found.
+      - url: https://github.com/kfupm
+        status: 200
+        note: Org exists but has no public repositories.
+      - url: https://github.com/KFUPM-OSC
+        status: 200
+        note: KFUPM Open Source Club; public student repositories.
+      - url: https://www.linkedin.com/school/kfupm/
+        status: 999
+        note: LinkedIn school page; 999 is LinkedIn bot-block, page exists in browser.

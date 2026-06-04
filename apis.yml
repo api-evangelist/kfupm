@@ -1,0 +1,99 @@
+---
+aid: kfupm
+name: King Fahd University of Petroleum & Minerals
+description: >-
+  King Fahd University of Petroleum & Minerals (KFUPM) is a public research
+  university in Dhahran, Saudi Arabia, ranked #101 in the QS World University
+  Rankings 2025. KFUPM does not operate a centralized public developer portal,
+  but several institutional systems expose machine-readable interfaces: the
+  KFUPM ePrints theses and dissertations repository serves a live OAI-PMH 2.0
+  endpoint and EPrints REST URLs, and the Elsevier Pure research portal
+  (pure.kfupm.edu.sa) ships the standard Pure Web Services REST API (OpenAPI 3,
+  authentication-gated). KFUPM also maintains a GitHub organization and a
+  student Open Source Club presence.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/kfupm/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Research
+  - Open Access
+  - Repository
+  - Saudi Arabia
+  - Middle East
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: kfupm:eprints-oai
+    name: KFUPM ePrints OAI-PMH
+    description: >-
+      OAI-PMH 2.0 metadata harvesting interface for the KFUPM ePrints theses
+      and dissertations repository (EPrints software). Verified live: the
+      Identify verb returns repositoryName "KFUPM ePrints", protocol version
+      2.0, and Dublin Core / EPrints metadata formats.
+    humanURL: https://eprints.kfupm.edu.sa/
+    baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+    tags: [ Repository, OAI-PMH, Metadata, Open Access, Theses, Library ]
+    properties:
+      - type: Documentation
+        url: https://eprints.kfupm.edu.sa/
+      - type: OpenAPI
+        url: https://eprints.kfupm.edu.sa/cgi/oai2?verb=Identify
+  - aid: kfupm:eprints-rest
+    name: KFUPM ePrints REST / Search
+    description: >-
+      EPrints content and search URLs for the KFUPM ePrints repository.
+      Individual records are addressable (e.g. /id/eprint/{id}) and the
+      /cgi/search interface returns results. No formal developer signup; access
+      is public read-only over HTTP.
+    humanURL: https://eprints.kfupm.edu.sa/
+    baseURL: https://eprints.kfupm.edu.sa/id/eprint/
+    tags: [ Repository, REST, Search, Open Access, Theses, Library ]
+    properties:
+      - type: Documentation
+        url: https://eprints.kfupm.edu.sa/
+  - aid: kfupm:pure-ws
+    name: KFUPM Pure Web Services API
+    description: >-
+      Elsevier Pure Web Services REST API hosted on the KFUPM research portal
+      (pure.kfupm.edu.sa). Defined with OpenAPI 3 using standard HTTP verbs.
+      The versioned endpoint (/ws/api/524) responds with HTTP 401, confirming
+      the API is present but requires an API key / authentication; it is not an
+      open public API.
+    humanURL: https://pure.kfupm.edu.sa/
+    baseURL: https://pure.kfupm.edu.sa/ws/api/
+    tags: [ Research, CRIS, Pure, REST, Publications, Authentication ]
+    properties:
+      - type: Documentation
+        url: https://pure.kfupm.edu.sa/
+      - type: Authentication
+        url: https://pure.kfupm.edu.sa/ws/api/
+common:
+  - type: Website
+    url: https://www.kfupm.edu.sa/
+  - type: GitHub
+    url: https://github.com/kfupm
+  - type: SourceCode
+    url: https://github.com/KFUPM-OSC
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/kfupm/
+  - type: Repository
+    url: https://eprints.kfupm.edu.sa/
+  - type: ResearchPortal
+    url: https://pure.kfupm.edu.sa/
+  - type: Plans
+    url: plans/kfupm-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/kfupm-rate-limits.yml
+  - type: FinOps
+    url: finops/kfupm-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
