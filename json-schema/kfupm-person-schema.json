@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kfupm/main/json-schema/kfupm-person-schema.json",
+  "title": "KFUPM Pure Person",
+  "description": "JSON Schema for the Person object returned by the KFUPM Elsevier Pure Web Services API (/ws/api/persons). Derived faithfully from the live OpenAPI 3.0.1 description (Pure API 5.35.3-4).",
+  "type": "object",
+  "required": ["pureId", "uuid"],
+  "properties": {
+    "pureId": { "type": "integer" },
+    "uuid": { "type": "string" },
+    "createdBy": { "type": "string" },
+    "createdDate": { "type": "string", "format": "date-time" },
+    "modifiedBy": { "type": "string" },
+    "modifiedDate": { "type": "string", "format": "date-time" },
+    "portalUrl": { "type": "string", "format": "uri" },
+    "version": { "type": "string" },
+    "startDateAsResearcher": { "type": "string", "format": "date" },
+    "affiliationNote": { "type": "string" },
+    "dateOfBirth": { "type": "string", "format": "date" },
+    "employeeStartDate": { "type": "string", "format": "date" },
+    "employeeEndDate": { "type": "string", "format": "date" },
+    "externalPositions": { "type": "array", "items": { "type": "object" } },
+    "keywordGroups": { "type": "array", "items": { "type": "object" } },
+    "leavesOfAbsence": { "type": "array", "items": { "type": "object" } },
+    "links": { "type": "array", "items": { "type": "object" } }
+  }
+}

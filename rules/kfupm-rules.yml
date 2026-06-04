@@ -1,0 +1,52 @@
+extends: [[spectral:oas, off]]
+formats:
+  - oas3
+documentationUrl: https://pure.kfupm.edu.sa/
+rules:
+  kfupm-info-title:
+    description: API info must declare a title (observed "Pure API").
+    severity: error
+    given: $.info
+    then:
+      field: title
+      function: truthy
+
+  kfupm-info-version:
+    description: API info must declare a version (observed Pure 5.35.3-4).
+    severity: error
+    given: $.info
+    then:
+      field: version
+      function: truthy
+
+  kfupm-server-defined:
+    description: At least one server must be defined; KFUPM Pure is served from /ws/api.
+    severity: warn
+    given: $.servers
+    then:
+      function: length
+      functionOptions:
+        min: 1
+
+  kfupm-operations-have-tags:
+    description: Pure operations are grouped by resource tag (activities, research-outputs, persons, organizations, ...).
+    severity: warn
+    given: $.paths[*][get,post,put,delete]
+    then:
+      field: tags
+      function: truthy
+
+  kfupm-json-media-type:
+    description: Pure responses are negotiated as application/json.
+    severity: info
+    given: $.paths[*][get,post,put].responses[*].content
+    then:
+      field: application/json
+      function: defined
+
+  kfupm-uuid-path-param:
+    description: Entity-by-id paths use a UUID-style {uuid} path parameter, matching Pure's UUID identifiers.
+    severity: info
+    given: $.paths
+    then:
+      function: defined

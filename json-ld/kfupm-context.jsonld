@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "kfupm": "https://pure.kfupm.edu.sa/ns#",
+    "@vocab": "https://pure.kfupm.edu.sa/ns#",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "institution": {
+      "@id": "kfupm:institution",
+      "@type": "@id"
+    },
+    "CollegeOrUniversity": "schema:CollegeOrUniversity",
+    "ResearchOutput": {
+      "@id": "schema:ScholarlyArticle"
+    },
+    "Person": {
+      "@id": "schema:Person"
+    },
+    "Organization": {
+      "@id": "schema:Organization"
+    },
+    "uuid": "schema:identifier",
+    "pureId": "schema:identifier",
+    "portalUrl": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "title": "schema:name",
+    "subTitle": "schema:alternateName",
+    "submissionYear": "schema:datePublished",
+    "createdDate": {
+      "@id": "schema:dateCreated",
+      "@type": "schema:DateTime"
+    },
+    "modifiedDate": {
+      "@id": "schema:dateModified",
+      "@type": "schema:DateTime"
+    },
+    "contributors": {
+      "@id": "schema:author",
+      "@container": "@set"
+    },
+    "organizations": {
+      "@id": "schema:affiliation",
+      "@container": "@set"
+    },
+    "managingOrganization": {
+      "@id": "schema:sourceOrganization",
+      "@type": "@id"
+    },
+    "peerReview": "kfupm:peerReview"
+  },
+  "@type": "CollegeOrUniversity",
+  "name": "King Fahd University of Petroleum & Minerals",
+  "url": "https://www.kfupm.edu.sa/",
+  "description": "Public research university in Dhahran, Saudi Arabia, exposing research information via the Elsevier Pure Web Services API.",
+  "kfupm:researchPortal": "https://pure.kfupm.edu.sa/",
+  "kfupm:repository": "https://eprints.kfupm.edu.sa/"
+}

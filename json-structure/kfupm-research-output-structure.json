@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kfupm/main/json-structure/kfupm-research-output-structure.json",
+  "name": "KfupmPureResearchOutput",
+  "description": "JSON Structure for the KFUPM Pure ResearchOutput object (Pure API 5.35.3-4).",
+  "type": "object",
+  "properties": {
+    "pureId": { "type": "int64" },
+    "uuid": { "type": "string" },
+    "createdBy": { "type": "string" },
+    "createdDate": { "type": "string", "format": "date-time" },
+    "modifiedBy": { "type": "string" },
+    "modifiedDate": { "type": "string", "format": "date-time" },
+    "portalUrl": { "type": "string", "format": "uri" },
+    "version": { "type": "string" },
+    "title": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "string" },
+        "formatted": { "type": "boolean" }
+      }
+    },
+    "peerReview": { "type": "boolean" },
+    "internationalPeerReview": { "type": "boolean" },
+    "totalNumberOfContributors": { "type": "int32" },
+    "submissionYear": { "type": "int32" },
+    "type": { "$ref": "#/definitions/ClassificationRef" },
+    "category": { "$ref": "#/definitions/ClassificationRef" },
+    "managingOrganization": { "$ref": "#/definitions/OrganizationRef" },
+    "organizations": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/OrganizationRef" }
+    },
+    "contributors": {
+      "type": "array",
+      "items": { "type": "object" }
+    }
+  },
+  "required": ["pureId", "uuid"],
+  "definitions": {
+    "ClassificationRef": {
+      "type": "object",
+      "properties": {
+        "uri": { "type": "string" },
+        "term": { "type": "object" }
+      }
+    },
+    "OrganizationRef": {
+      "type": "object",
+      "properties": {
+        "uuid": { "type": "string" },
+        "systemName": { "type": "string" },
+        "name": { "type": "object" }
+      }
+    }
+  }
+}

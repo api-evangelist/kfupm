@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kfupm/main/json-schema/kfupm-research-output-schema.json",
+  "title": "KFUPM Pure ResearchOutput",
+  "description": "JSON Schema for the ResearchOutput object returned by the KFUPM Elsevier Pure Web Services API (/ws/api/research-outputs). Derived faithfully from the live OpenAPI 3.0.1 description (Pure API 5.35.3-4).",
+  "type": "object",
+  "required": ["pureId", "uuid"],
+  "properties": {
+    "pureId": { "type": "integer", "description": "Numeric Pure internal identifier." },
+    "uuid": { "type": "string", "description": "Stable UUID for the research output." },
+    "createdBy": { "type": "string" },
+    "createdDate": { "type": "string", "format": "date-time" },
+    "modifiedBy": { "type": "string" },
+    "modifiedDate": { "type": "string", "format": "date-time" },
+    "portalUrl": { "type": "string", "format": "uri", "description": "Public Pure portal URL for the output." },
+    "version": { "type": "string" },
+    "title": {
+      "type": "object",
+      "description": "FormattedString title.",
+      "properties": {
+        "value": { "type": "string" },
+        "formatted": { "type": "boolean" }
+      }
+    },
+    "subTitle": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "string" },
+        "formatted": { "type": "boolean" }
+      }
+    },
+    "type": {
+      "$ref": "#/$defs/classificationRef",
+      "description": "Research output type classification."
+    },
+    "category": { "$ref": "#/$defs/classificationRef" },
+    "peerReview": { "type": "boolean" },
+    "internationalPeerReview": { "type": "boolean" },
+    "language": { "$ref": "#/$defs/classificationRef" },
+    "totalNumberOfContributors": { "type": "integer" },
+    "submissionYear": { "type": "integer" },
+    "mainResearchArea": { "$ref": "#/$defs/classificationRef" },
+    "managingOrganization": { "$ref": "#/$defs/organizationRef" },
+    "contributors": {
+      "type": "array",
+      "description": "Persons contributing to the output.",
+      "items": { "type": "object" }
+    },
+    "organizations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/organizationRef" }
+    },
+    "externalOrganizations": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "electronicVersions": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "links": {
+      "type": "array",
+      "items": { "type": "object" }
+    }
+  },
+  "$defs": {
+    "classificationRef": {
+      "type": "object",
+      "description": "Reference to a controlled-vocabulary classification term.",
+      "properties": {
+        "uri": { "type": "string" },
+        "term": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locale": { "type": "string" },
+                  "value": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "organizationRef": {
+      "type": "object",
+      "description": "Reference to an organizational unit in Pure.",
+      "properties": {
+        "uuid": { "type": "string" },
+        "systemName": { "type": "string" },
+        "name": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locale": { "type": "string" },
+                  "value": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

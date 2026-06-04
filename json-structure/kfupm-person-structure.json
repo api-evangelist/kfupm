@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kfupm/main/json-structure/kfupm-person-structure.json",
+  "name": "KfupmPurePerson",
+  "description": "JSON Structure for the KFUPM Pure Person object (Pure API 5.35.3-4).",
+  "type": "object",
+  "properties": {
+    "pureId": { "type": "int64" },
+    "uuid": { "type": "string" },
+    "createdBy": { "type": "string" },
+    "createdDate": { "type": "string", "format": "date-time" },
+    "modifiedBy": { "type": "string" },
+    "modifiedDate": { "type": "string", "format": "date-time" },
+    "portalUrl": { "type": "string", "format": "uri" },
+    "version": { "type": "string" },
+    "startDateAsResearcher": { "type": "string", "format": "date" },
+    "affiliationNote": { "type": "string" },
+    "employeeStartDate": { "type": "string", "format": "date" },
+    "employeeEndDate": { "type": "string", "format": "date" }
+  },
+  "required": ["pureId", "uuid"]
+}

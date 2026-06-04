@@ -1,0 +1,52 @@
+vocabulary:
+  name: KFUPM Pure Web Services Vocabulary
+  description: >-
+    Controlled vocabulary of the core terms used by the KFUPM Elsevier Pure
+    Web Services REST API (Pure API 5.35.3-4), the research information
+    (CRIS) system hosted at pure.kfupm.edu.sa. Terms are drawn faithfully
+    from the live OpenAPI 3.0.1 description and Pure's domain model.
+  version: "5.35.3-4"
+  terms:
+    - term: ResearchOutput
+      definition: >-
+        A research result such as a journal article, conference contribution,
+        book, or chapter, exposed under /ws/api/research-outputs.
+      tags: [object, publication, research]
+    - term: Person
+      definition: >-
+        A researcher or staff member with affiliations, positions, and
+        keyword groups, exposed under /ws/api/persons.
+      tags: [object, person, researcher]
+    - term: Organization
+      definition: >-
+        An organizational unit (college, department, center) within KFUPM,
+        exposed under /ws/api/organizations.
+      tags: [object, organization, affiliation]
+    - term: uuid
+      definition: Stable universally unique identifier for a Pure entity.
+      tags: [field, identifier]
+    - term: pureId
+      definition: Numeric internal Pure identifier for an entity.
+      tags: [field, identifier]
+    - term: portalUrl
+      definition: Public Pure research portal URL for an entity.
+      tags: [field, link]
+    - term: ClassificationRef
+      definition: >-
+        Reference to a controlled-vocabulary classification term (type,
+        category, language, research area) carrying a uri and localized term text.
+      tags: [object, classification, controlled-vocabulary]
+    - term: OrganizationRef
+      definition: A lightweight reference to an Organization (uuid, systemName, localized name).
+      tags: [object, reference, organization]
+    - term: FormattedString
+      definition: A string value with a boolean flag indicating whether it contains markup.
+      tags: [object, text]
+    - term: pageInformation
+      definition: Pagination envelope describing offset and size of a list result.
+      tags: [field, pagination]
+    - term: api-key
+      definition: >-
+        Authentication header required by the KFUPM Pure API; requests without
+        it return HTTP 401.
+      tags: [authentication, security]

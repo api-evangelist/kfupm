@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pure.kfupm.edu.sa/ws/api/persons/{uuid}",
+    "headers": {
+      "Accept": "application/json",
+      "api-key": "<YOUR_PURE_API_KEY>"
+    }
+  },
+  "response": {
+    "pureId": 200654321,
+    "uuid": "b2c3d4e5-0000-0000-0000-000000000010",
+    "createdDate": "2019-03-12T09:00:00.000Z",
+    "modifiedDate": "2025-02-20T14:05:00.000Z",
+    "portalUrl": "https://pure.kfupm.edu.sa/en/persons/b2c3d4e5",
+    "version": "1",
+    "startDateAsResearcher": "2010-09-01",
+    "employeeStartDate": "2010-09-01",
+    "affiliationNote": "College of Petroleum Engineering & Geosciences",
+    "keywordGroups": [],
+    "externalPositions": [],
+    "links": []
+  }
+}

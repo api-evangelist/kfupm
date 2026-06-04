@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pure.kfupm.edu.sa/ws/api/research-outputs?size=2&offset=0",
+    "headers": {
+      "Accept": "application/json",
+      "api-key": "<YOUR_PURE_API_KEY>"
+    },
+    "note": "The KFUPM Pure Web Services API requires an api-key header; unauthenticated requests return HTTP 401."
+  },
+  "response": {
+    "count": 12450,
+    "pageInformation": {
+      "offset": 0,
+      "size": 2
+    },
+    "items": [
+      {
+        "pureId": 100123456,
+        "uuid": "a1b2c3d4-0000-0000-0000-000000000001",
+        "createdDate": "2024-09-01T08:15:00.000Z",
+        "modifiedDate": "2025-01-10T11:42:00.000Z",
+        "portalUrl": "https://pure.kfupm.edu.sa/en/publications/a1b2c3d4",
+        "version": "1",
+        "title": { "value": "Catalytic Upgrading of Heavy Crude Fractions", "formatted": false },
+        "peerReview": true,
+        "internationalPeerReview": true,
+        "submissionYear": 2024,
+        "totalNumberOfContributors": 4,
+        "type": {
+          "uri": "/dk/atira/pure/researchoutput/researchoutputtypes/contributiontojournal/article",
+          "term": { "text": [ { "locale": "en_GB", "value": "Article" } ] }
+        },
+        "managingOrganization": {
+          "uuid": "0000aaaa-1111-2222-3333-444455556666",
+          "systemName": "Organization",
+          "name": { "text": [ { "locale": "en_GB", "value": "Department of Chemical Engineering" } ] }
+        }
+      }
+    ]
+  }
+}

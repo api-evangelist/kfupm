@@ -27,6 +27,7 @@ tags:
   - Middle East
 created: '2026-06-03'
 modified: '2026-06-03'
+# 2026-06-03: enrichment added real OpenAPI + derived artifacts for the Pure Web Services API.
 specificationVersion: '0.19'
 apis:
   - aid: kfupm:eprints-oai
@@ -73,6 +74,26 @@ apis:
         url: https://pure.kfupm.edu.sa/
       - type: Authentication
         url: https://pure.kfupm.edu.sa/ws/api/
+      - type: OpenAPI
+        url: openapi/kfupm-pure-ws.yaml
+      - type: JSONSchema
+        url: json-schema/kfupm-research-output-schema.json
+      - type: JSONSchema
+        url: json-schema/kfupm-person-schema.json
+      - type: JSONStructure
+        url: json-structure/kfupm-research-output-structure.json
+      - type: JSONStructure
+        url: json-structure/kfupm-person-structure.json
+      - type: Example
+        url: examples/kfupm-list-research-outputs-example.json
+      - type: Example
+        url: examples/kfupm-get-person-example.json
+      - type: Rules
+        url: rules/kfupm-rules.yml
+      - type: Vocabulary
+        url: vocabulary/kfupm-vocabulary.yml
+      - type: JSONLD
+        url: json-ld/kfupm-context.jsonld
 common:
   - type: Website
     url: https://www.kfupm.edu.sa/
