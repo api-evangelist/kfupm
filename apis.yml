@@ -84,9 +84,9 @@ apis:
         url: json-structure/kfupm-research-output-structure.json
       - type: JSONStructure
         url: json-structure/kfupm-person-structure.json
-      - type: Example
+      - type: Examples
         url: examples/kfupm-list-research-outputs-example.json
-      - type: Example
+      - type: Examples
         url: examples/kfupm-get-person-example.json
       - type: Rules
         url: rules/kfupm-rules.yml
