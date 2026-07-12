@@ -1,0 +1,29 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.kfupm.edu.sa
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Feb  5 08:41:04 2027 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: eprints.kfupm.edu.sa
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Feb  5 08:41:04 2027 GMT
+  hsts: true
+  hsts_max_age: 63072000
+- host: pure.kfupm.edu.sa
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 27 01:02:33 2026 GMT
+  hsts: true
+  hsts_max_age: 2592000
+domains:
+- domain: kfupm.edu.sa
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
