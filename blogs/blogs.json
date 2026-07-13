@@ -1,0 +1,14 @@
+{
+  "repo": "kfupm",
+  "feeds": [
+    {
+      "source": "https://news.kfupm.edu.sa",
+      "feed_url": "https://news.kfupm.edu.sa",
+      "title": "KFUPM News",
+      "saved": 0,
+      "error": "parse_failed"
+    }
+  ],
+  "fetched": "2026-07-11T11:43:46Z",
+  "post_count": 5
+}
