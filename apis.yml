@@ -95,6 +95,8 @@ apis:
       - type: JSONLD
         url: json-ld/kfupm-context.jsonld
 common:
+  - type: AgenticAccess
+    url: agentic-access/kfupm-agentic-access.yml
   - type: DomainSecurity
     url: security/kfupm-domain-security.yml
   - type: Authentication
