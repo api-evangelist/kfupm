@@ -12,9 +12,22 @@ description: >-
   authentication-gated). KFUPM also maintains a GitHub organization and a
   student Open Source Club presence.
 type: Index
+accessModel:
+  pricing: free
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Free · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/kfupm.png
 url: https://raw.githubusercontent.com/api-evangelist/kfupm/refs/heads/main/apis.yml
 tags:
   - Education
@@ -30,70 +43,1324 @@ modified: '2026-06-03'
 # 2026-06-03: enrichment added real OpenAPI + derived artifacts for the Pure Web Services API.
 specificationVersion: '0.19'
 apis:
-  - aid: kfupm:eprints-oai
-    name: KFUPM ePrints OAI-PMH
-    description: >-
-      OAI-PMH 2.0 metadata harvesting interface for the KFUPM ePrints theses
-      and dissertations repository (EPrints software). Verified live: the
-      Identify verb returns repositoryName "KFUPM ePrints", protocol version
-      2.0, and Dublin Core / EPrints metadata formats.
-    humanURL: https://eprints.kfupm.edu.sa/
-    baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
-    tags: [ Repository, OAI-PMH, Metadata, Open Access, Theses, Library ]
-    properties:
-      - type: Documentation
-        url: https://eprints.kfupm.edu.sa/
-      - type: OpenAPI
-        url: https://eprints.kfupm.edu.sa/cgi/oai2?verb=Identify
-  - aid: kfupm:eprints-rest
-    name: KFUPM ePrints REST / Search
-    description: >-
-      EPrints content and search URLs for the KFUPM ePrints repository.
-      Individual records are addressable (e.g. /id/eprint/{id}) and the
-      /cgi/search interface returns results. No formal developer signup; access
-      is public read-only over HTTP.
-    humanURL: https://eprints.kfupm.edu.sa/
-    baseURL: https://eprints.kfupm.edu.sa/id/eprint/
-    tags: [ Repository, REST, Search, Open Access, Theses, Library ]
-    properties:
-      - type: Documentation
-        url: https://eprints.kfupm.edu.sa/
-  - aid: kfupm:pure-ws
-    name: KFUPM Pure Web Services API
-    description: >-
-      Elsevier Pure Web Services REST API hosted on the KFUPM research portal
-      (pure.kfupm.edu.sa). Defined with OpenAPI 3 using standard HTTP verbs.
-      The versioned endpoint (/ws/api/524) responds with HTTP 401, confirming
-      the API is present but requires an API key / authentication; it is not an
-      open public API.
-    humanURL: https://pure.kfupm.edu.sa/
-    baseURL: https://pure.kfupm.edu.sa/ws/api/
-    tags: [ Research, CRIS, Pure, REST, Publications, Authentication ]
-    properties:
-      - type: Documentation
-        url: https://pure.kfupm.edu.sa/
-      - type: Authentication
-        url: https://pure.kfupm.edu.sa/ws/api/
-      - type: OpenAPI
-        url: openapi/kfupm-pure-ws.yaml
-      - type: JSONSchema
-        url: json-schema/kfupm-research-output-schema.json
-      - type: JSONSchema
-        url: json-schema/kfupm-person-schema.json
-      - type: JSONStructure
-        url: json-structure/kfupm-research-output-structure.json
-      - type: JSONStructure
-        url: json-structure/kfupm-person-structure.json
-      - type: Examples
-        url: examples/kfupm-list-research-outputs-example.json
-      - type: Examples
-        url: examples/kfupm-get-person-example.json
-      - type: Rules
-        url: rules/kfupm-rules.yml
-      - type: Vocabulary
-        url: vocabulary/kfupm-vocabulary.yml
-      - type: JSONLD
-        url: json-ld/kfupm-context.jsonld
+- aid: kfupm:eprints-rest
+  name: KFUPM ePrints REST / Search
+  description: >-
+    EPrints content and search URLs for the KFUPM ePrints repository. Individual records are addressable
+    (e.g. /id/eprint/{id}) and the /cgi/search interface returns results. No formal developer signup;
+    access is public read-only over HTTP.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/id/eprint/
+  tags:
+  - Repository
+  - REST
+  - Search
+  - Open Access
+  - Theses
+  - Library
+  properties:
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+- aid: kfupm:kfupm-activity-api
+  name: King Fahd University of Petroleum & Minerals activity API
+  description: >-
+    The activity API from King Fahd University of Petroleum & Minerals — 39 operation(s) for activity.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - activity
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-activity-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-application-api
+  name: King Fahd University of Petroleum & Minerals application API
+  description: >-
+    The application API from King Fahd University of Petroleum & Minerals — 36 operation(s) for application.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - application
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-application-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-authorcollaboration-api
+  name: King Fahd University of Petroleum & Minerals authorCollaboration API
+  description: >-
+    The authorCollaboration API from King Fahd University of Petroleum & Minerals — 9 operation(s) for
+    authorcollaboration.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - authorCollaboration
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-authorcollaboration-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-award-api
+  name: King Fahd University of Petroleum & Minerals award API
+  description: >-
+    The award API from King Fahd University of Petroleum & Minerals — 37 operation(s) for award.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - award
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-award-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-classificationscheme-api
+  name: King Fahd University of Petroleum & Minerals classificationScheme API
+  description: >-
+    The classificationScheme API from King Fahd University of Petroleum & Minerals — 7 operation(s) for
+    classificationscheme.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - classificationScheme
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-classificationscheme-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-concept-api
+  name: King Fahd University of Petroleum & Minerals concept API
+  description: >-
+    The concept API from King Fahd University of Petroleum & Minerals — 4 operation(s) for concept.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - concept
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-concept-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-conferenceseries-api
+  name: King Fahd University of Petroleum & Minerals conferenceSeries API
+  description: >-
+    The conferenceSeries API from King Fahd University of Petroleum & Minerals — 14 operation(s) for conferenceseries.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - conferenceSeries
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-conferenceseries-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-contract-api
+  name: King Fahd University of Petroleum & Minerals contract API
+  description: >-
+    The contract API from King Fahd University of Petroleum & Minerals — 26 operation(s) for contract.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - contract
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-contract-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-course-api
+  name: King Fahd University of Petroleum & Minerals course API
+  description: >-
+    The course API from King Fahd University of Petroleum & Minerals — 27 operation(s) for course.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - course
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-course-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-dataset-api
+  name: King Fahd University of Petroleum & Minerals dataSet API
+  description: >-
+    The dataSet API from King Fahd University of Petroleum & Minerals — 30 operation(s) for dataset.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - dataSet
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-dataset-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-education-api
+  name: King Fahd University of Petroleum & Minerals education API
+  description: >-
+    The education API from King Fahd University of Petroleum & Minerals — 14 operation(s) for education.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - education
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-education-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-equipment-api
+  name: King Fahd University of Petroleum & Minerals equipment API
+  description: >-
+    The equipment API from King Fahd University of Petroleum & Minerals — 28 operation(s) for equipment.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - equipment
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-equipment-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-ethicalreview-api
+  name: King Fahd University of Petroleum & Minerals ethicalReview API
+  description: >-
+    The ethicalReview API from King Fahd University of Petroleum & Minerals — 22 operation(s) for ethicalreview.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - ethicalReview
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-ethicalreview-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-event-api
+  name: King Fahd University of Petroleum & Minerals event API
+  description: >-
+    The event API from King Fahd University of Petroleum & Minerals — 22 operation(s) for event.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - event
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-event-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-externalorganization-api
+  name: King Fahd University of Petroleum & Minerals externalOrganization API
+  description: >-
+    The externalOrganization API from King Fahd University of Petroleum & Minerals — 29 operation(s) for
+    externalorganization.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - externalOrganization
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-externalorganization-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-externalperson-api
+  name: King Fahd University of Petroleum & Minerals externalPerson API
+  description: >-
+    The externalPerson API from King Fahd University of Petroleum & Minerals — 22 operation(s) for externalperson.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - externalPerson
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-externalperson-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-fingerprint-api
+  name: King Fahd University of Petroleum & Minerals fingerprint API
+  description: >-
+    The fingerprint API from King Fahd University of Petroleum & Minerals — 3 operation(s) for fingerprint.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - fingerprint
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-fingerprint-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-fundingopportunity-api
+  name: King Fahd University of Petroleum & Minerals fundingOpportunity API
+  description: >-
+    The fundingOpportunity API from King Fahd University of Petroleum & Minerals — 21 operation(s) for
+    fundingopportunity.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - fundingOpportunity
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-fundingopportunity-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-impact-api
+  name: King Fahd University of Petroleum & Minerals impact API
+  description: >-
+    The impact API from King Fahd University of Petroleum & Minerals — 31 operation(s) for impact.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - impact
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-impact-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-journal-api
+  name: King Fahd University of Petroleum & Minerals journal API
+  description: >-
+    The journal API from King Fahd University of Petroleum & Minerals — 22 operation(s) for journal.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - journal
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-journal-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-keywordgroupconfiguration-api
+  name: King Fahd University of Petroleum & Minerals keywordGroupConfiguration API
+  description: >-
+    The keywordGroupConfiguration API from King Fahd University of Petroleum & Minerals — 7 operation(s)
+    for keywordgroupconfiguration.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - keywordGroupConfiguration
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-keywordgroupconfiguration-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-milestone-api
+  name: King Fahd University of Petroleum & Minerals milestone API
+  description: >-
+    The milestone API from King Fahd University of Petroleum & Minerals — 24 operation(s) for milestone.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - milestone
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-milestone-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-organization-api
+  name: King Fahd University of Petroleum & Minerals organization API
+  description: >-
+    The organization API from King Fahd University of Petroleum & Minerals — 34 operation(s) for organization.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - organization
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-organization-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-person-api
+  name: King Fahd University of Petroleum & Minerals person API
+  description: >-
+    The person API from King Fahd University of Petroleum & Minerals — 58 operation(s) for person.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - person
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-person-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-personexpertise-api
+  name: King Fahd University of Petroleum & Minerals personExpertise API
+  description: >-
+    The personExpertise API from King Fahd University of Petroleum & Minerals — 7 operation(s) for personexpertise.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - personExpertise
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-personexpertise-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-pressmedia-api
+  name: King Fahd University of Petroleum & Minerals pressMedia API
+  description: >-
+    The pressMedia API from King Fahd University of Petroleum & Minerals — 24 operation(s) for pressmedia.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - pressMedia
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-pressmedia-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-prize-api
+  name: King Fahd University of Petroleum & Minerals prize API
+  description: >-
+    The prize API from King Fahd University of Petroleum & Minerals — 29 operation(s) for prize.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - prize
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-prize-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-project-api
+  name: King Fahd University of Petroleum & Minerals project API
+  description: >-
+    The project API from King Fahd University of Petroleum & Minerals — 33 operation(s) for project.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - project
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-project-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-publisher-api
+  name: King Fahd University of Petroleum & Minerals publisher API
+  description: >-
+    The publisher API from King Fahd University of Petroleum & Minerals — 18 operation(s) for publisher.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - publisher
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-publisher-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-researchoutput-api
+  name: King Fahd University of Petroleum & Minerals researchOutput API
+  description: >-
+    The researchOutput API from King Fahd University of Petroleum & Minerals — 67 operation(s) for researchoutput.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - researchOutput
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-researchoutput-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-role-api
+  name: King Fahd University of Petroleum & Minerals role API
+  description: >-
+    The role API from King Fahd University of Petroleum & Minerals — 2 operation(s) for role.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - role
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-role-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-semester-api
+  name: King Fahd University of Petroleum & Minerals semester API
+  description: >-
+    The semester API from King Fahd University of Petroleum & Minerals — 8 operation(s) for semester.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - semester
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-semester-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-specialization-api
+  name: King Fahd University of Petroleum & Minerals specialization API
+  description: >-
+    The specialization API from King Fahd University of Petroleum & Minerals — 8 operation(s) for specialization.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - specialization
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-specialization-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-studentproject-api
+  name: King Fahd University of Petroleum & Minerals studentProject API
+  description: >-
+    The studentProject API from King Fahd University of Petroleum & Minerals — 26 operation(s) for studentproject.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - studentProject
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-studentproject-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-studentthesis-api
+  name: King Fahd University of Petroleum & Minerals studentThesis API
+  description: >-
+    The studentThesis API from King Fahd University of Petroleum & Minerals — 26 operation(s) for studentthesis.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - studentThesis
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-studentthesis-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-thesaurus-api
+  name: King Fahd University of Petroleum & Minerals thesaurus API
+  description: >-
+    The thesaurus API from King Fahd University of Petroleum & Minerals — 5 operation(s) for thesaurus.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - thesaurus
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-thesaurus-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
+- aid: kfupm:kfupm-user-api
+  name: King Fahd University of Petroleum & Minerals user API
+  description: >-
+    The user API from King Fahd University of Petroleum & Minerals — 7 operation(s) for user.
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
+  tags:
+  - user
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-user-api-openapi.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/
+  - type: Authentication
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: JSONSchema
+    url: json-schema/kfupm-research-output-schema.json
+  - type: JSONSchema
+    url: json-schema/kfupm-person-schema.json
+  - type: JSONStructure
+    url: json-structure/kfupm-research-output-structure.json
+  - type: JSONStructure
+    url: json-structure/kfupm-person-structure.json
+  - type: Examples
+    url: examples/kfupm-list-research-outputs-example.json
+  - type: Examples
+    url: examples/kfupm-get-person-example.json
+  - type: Rules
+    url: rules/kfupm-rules.yml
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/kfupm-context.jsonld
 common:
   - type: AgenticAccess
     url: agentic-access/kfupm-agentic-access.yml
