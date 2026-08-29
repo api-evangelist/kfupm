@@ -12,6 +12,18 @@ description: >-
   authentication-gated). KFUPM also maintains a GitHub organization and a
   student Open Source Club presence.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: self-serve
@@ -1403,6 +1415,9 @@ apis:
   - type: JSONLD
     url: json-ld/kfupm-context.jsonld
 common:
+  - type: CapabilityMap
+    url: capabilities/kfupm-capability-edges.yml
+    name: King Fahd University of Petroleum & Minerals Business Capability Map
   - type: AgenticAccess
     url: agentic-access/kfupm-agentic-access.yml
   - type: DomainSecurity
