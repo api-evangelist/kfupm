@@ -1,52 +1,74 @@
+generated: '2026-08-30'
+method: derived
+source: >-
+  Live responses from https://eprints.kfupm.edu.sa/cgi/oai2, the ePrints JSON export endpoint,
+  and https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration — probed 2026-08-30.
+  The previous version of this file was a vocabulary of Elsevier Pure terms and has been removed
+  along with the Pure contract it came from.
+x-operator: institution
 vocabulary:
-  name: KFUPM Pure Web Services Vocabulary
+  name: KFUPM Institution-Operated Surface Vocabulary
   description: >-
-    Controlled vocabulary of the core terms used by the KFUPM Elsevier Pure
-    Web Services REST API (Pure API 5.35.3-4), the research information
-    (CRIS) system hosted at pure.kfupm.edu.sa. Terms are drawn faithfully
-    from the live OpenAPI 3.0.1 description and Pure's domain model.
-  version: "5.35.3-4"
+    Terms actually used by the surfaces King Fahd University of Petroleum & Minerals operates
+    itself — the ePrints repository and the university identity provider. Terms belonging to the
+    Elsevier Pure tenant deployment are deliberately excluded; they are Elsevier's vocabulary.
   terms:
-    - term: ResearchOutput
+    - term: eprintid
       definition: >-
-        A research result such as a journal article, conference contribution,
-        book, or chapter, exposed under /ws/api/research-outputs.
-      tags: [object, publication, research]
-    - term: Person
+        Numeric identifier of a record in KFUPM ePrints. Appears in the record URI
+        (/id/eprint/{eprintid}) and inside the OAI identifier oai:eprints.kfupm.edu.sa:{eprintid}.
+      tags: [identifier, repository]
+    - term: 'oai:eprints.kfupm.edu.sa:{eprintid}'
       definition: >-
-        A researcher or staff member with affiliations, positions, and
-        keyword groups, exposed under /ws/api/persons.
-      tags: [object, person, researcher]
-    - term: Organization
+        The OAI identifier scheme declared by Identify. repositoryIdentifier is
+        eprints.kfupm.edu.sa and the delimiter is a colon.
+      tags: [identifier, oai-pmh]
+    - term: setSpec
       definition: >-
-        An organizational unit (college, department, center) within KFUPM,
-        exposed under /ws/api/organizations.
-      tags: [object, organization, affiliation]
-    - term: uuid
-      definition: Stable universally unique identifier for a Pure entity.
-      tags: [field, identifier]
-    - term: pureId
-      definition: Numeric internal Pure identifier for an entity.
-      tags: [field, identifier]
-    - term: portalUrl
-      definition: Public Pure research portal URL for an entity.
-      tags: [field, link]
-    - term: ClassificationRef
+        OAI-PMH set selector. KFUPM hex-encodes the underlying EPrints query, so
+        7374617475733D707562 is the ASCII string "status=pub" and surfaces as "Status = Published".
+      tags: [oai-pmh, harvesting]
+    - term: metadataPrefix
       definition: >-
-        Reference to a controlled-vocabulary classification term (type,
-        category, language, research area) carrying a uri and localized term text.
-      tags: [object, classification, controlled-vocabulary]
-    - term: OrganizationRef
-      definition: A lightweight reference to an Organization (uuid, systemName, localized name).
-      tags: [object, reference, organization]
-    - term: FormattedString
-      definition: A string value with a boolean flag indicating whether it contains markup.
-      tags: [object, text]
-    - term: pageInformation
-      definition: Pagination envelope describing offset and size of a list result.
-      tags: [field, pagination]
-    - term: api-key
+        Metadata format selector. KFUPM exposes didl, mets, oai_bibl, oai_dc, rdf and uketd_dc.
+        uketd_dc is the UK Electronic Theses and Dissertations profile — a thesis repository signal.
+      tags: [oai-pmh, metadata]
+    - term: arabic_abstract
       definition: >-
-        Authentication header required by the KFUPM Pure API; requests without
-        it return HTTP 401.
-      tags: [authentication, security]
+        KFUPM-local record field carrying the Arabic-language abstract alongside english_abstract.
+        Not part of the stock EPrints model; a genuine institutional extension.
+      tags: [field, repository, arabic]
+    - term: divisions
+      definition: >-
+        KFUPM internal division codes on a record (e.g. B4). Not resolved to human-readable
+        college or department names anywhere machine-readable.
+      tags: [field, taxonomy]
+    - term: subjects
+      definition: >-
+        KFUPM subject codes on a record (e.g. F7 = Petroleum, F20 = General, per the OAI ListSets
+        set names). The same codes drive the hex-encoded subject setSpecs.
+      tags: [field, taxonomy]
+    - term: full_text_status
+      definition: >-
+        Access state of the attached documents — observed values include `restricted`. KFUPM
+        applies embargoes with an explicit date_embargo on the document object.
+      tags: [field, access]
+    - term: entityID
+      definition: >-
+        SAML entity identifier of the university identity provider,
+        http://sts.kfupm.edu.sa/adfs/services/trust. The stable name other federations key on.
+      tags: [identity, saml]
+    - term: scope (federation)
+      definition: >-
+        The eduGAIN/MAEEN attribute scope asserted by the KFUPM IdP: kfupm.edu.sa. Distinct from
+        an OAuth scope.
+      tags: [identity, saml, edugain]
+    - term: MAEEN (SA-MIF)
+      definition: >-
+        The Saudi identity federation that registers KFUPM's IdP into eduGAIN. Registration
+        authority https://www.maeen.sa, federation code SA-MIF.
+      tags: [identity, federation, saudi-arabia]
+    - term: issuer
+      definition: >-
+        OpenID Connect issuer of the university authorization server, https://sts.kfupm.edu.sa/adfs.
+      tags: [identity, oidc]

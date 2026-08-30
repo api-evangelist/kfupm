@@ -1,16 +1,93 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/kfupm-pure-ws.yaml
+generated: '2026-08-30'
+method: probed
+source: >-
+  https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration (200),
+  https://sts.kfupm.edu.sa/adfs/discovery/keys (200),
+  https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml (200),
+  https://pure.kfupm.edu.sa/ws/api/ (200) — probed 2026-08-30.
+provider: King Fahd University of Petroleum & Minerals
+providerId: kfupm
+description: >-
+  Authentication posture across KFUPM's surfaces. The previous version of this file described an
+  api-key scheme derived from the Elsevier Pure Web Services OpenAPI; that contract is Elsevier's
+  and has been removed from this repo, so this file was rebuilt from KFUPM's own identity provider.
 summary:
-  types:
-  - apiKey
-  api_key_in:
-  - header
+  types: [openIdConnect, oauth2, saml2, apiKey, none]
+  institution_operated: [openIdConnect, oauth2, saml2, none]
+  tenant_operated: [apiKey]
 schemes:
-- name: api-key
-  type: apiKey
-  in: header
-  parameter: api-key
-  description: Security mechanism for the API
-  sources:
-  - openapi/kfupm-pure-ws.yaml
+  - name: kfupm-oidc
+    type: openIdConnect
+    x-operator: institution
+    openIdConnectUrl: https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration
+    issuer: https://sts.kfupm.edu.sa/adfs
+    description: >-
+      Institution-operated OpenID Connect provider (Microsoft AD FS). Client registration is not
+      self-serve — no public developer portal or client-registration endpoint was found; a
+      relying party is onboarded by KFUPM IT.
+    endpoints:
+      authorization: https://sts.kfupm.edu.sa/adfs/oauth2/authorize/
+      token: https://sts.kfupm.edu.sa/adfs/oauth2/token/
+      userinfo: https://sts.kfupm.edu.sa/adfs/userinfo
+      jwks: https://sts.kfupm.edu.sa/adfs/discovery/keys
+      end_session: https://sts.kfupm.edu.sa/adfs/oauth2/logout
+      device_authorization: https://sts.kfupm.edu.sa/adfs/oauth2/devicecode
+    grant_types:
+      - authorization_code
+      - refresh_token
+      - client_credentials
+      - urn:ietf:params:oauth:grant-type:jwt-bearer
+      - urn:ietf:params:oauth:grant-type:device_code
+      - implicit
+      - password
+    client_auth_methods:
+      - client_secret_post
+      - client_secret_basic
+      - private_key_jwt
+      - windows_client_authentication
+    id_token_signing_alg: RS256
+    subject_types: [pairwise]
+    jwks_keys: 2
+    sources:
+      - https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration
+  - name: kfupm-saml2
+    type: saml2
+    x-operator: institution
+    description: >-
+      Institution-operated SAML 2.0 identity provider, registered in eduGAIN via MAEEN (SA-MIF)
+      as entity 671205 with scope kfupm.edu.sa.
+    entity_id: http://sts.kfupm.edu.sa/adfs/services/trust
+    metadata_url: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
+    sso_endpoint: https://sts.kfupm.edu.sa/adfs/ls/
+    bindings:
+      - urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect
+      - urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST
+    nameid_formats:
+      - urn:oasis:names:tc:SAML:2.0:nameid-format:persistent
+      - urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+      - urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress
+    sources:
+      - https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
+      - https://technical.edugain.org/api.php?action=list_entities&format=json
+  - name: eprints-anonymous
+    type: none
+    x-operator: institution
+    description: >-
+      The KFUPM ePrints OAI-PMH, JSON export and JSON search endpoints require no credential.
+      Verified anonymous on 2026-08-30.
+    sources:
+      - https://eprints.kfupm.edu.sa/cgi/oai2?verb=Identify
+      - https://eprints.kfupm.edu.sa/cgi/search/simple?q=petroleum&output=JSON
+  - name: pure-ws-api-key
+    type: apiKey
+    in: header
+    parameter: api-key
+    x-operator: tenant
+    description: >-
+      The Elsevier Pure Web Services deployed at pure.kfupm.edu.sa authenticates with a Pure API
+      key in an `api-key` header. This is Elsevier's scheme on Elsevier's contract; KFUPM operates
+      the tenant, not the interface. Keys are issued from Pure administration, which redirects to
+      https://pure.kfupm.edu.sa/admin/saml2/authenticate/pure — the tenant is itself fronted by
+      KFUPM's SAML IdP.
+    sources:
+      - https://pure.kfupm.edu.sa/ws/api/
