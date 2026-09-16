@@ -77,35 +77,48 @@ modified: '2026-08-30'
 #   operated surfaces were found and verified by probe, and described for the first time.
 specificationVersion: '0.23'
 apis:
-- aid: kfupm:identity-federation
-  name: KFUPM Identity Federation (SAML 2.0 + OpenID Connect)
-  x-operator: institution
+- aid: kfupm:pure-tenant
+  name: KFUPM Elsevier Pure Web Services (tenant deployment)
+  x-operator: tenant
+  x-vendor: Elsevier
+  x-vendor-product: Pure (Pure API 5.35.3-4)
   description: >-
-    KFUPM's own identity provider at sts.kfupm.edu.sa (Microsoft AD FS). Publishes signed SAML 2.0
-    federation metadata (80 KB, entityID http://sts.kfupm.edu.sa/adfs/services/trust, IDPSSODescriptor
-    with HTTP-Redirect and HTTP-POST SSO bindings, 63 attributes) and an OpenID Connect discovery
-    document for issuer https://sts.kfupm.edu.sa/adfs with a two-key RS256 JWKS. Registered in
-    eduGAIN as entity 671205 by MAEEN (SA-MIF) with scope kfupm.edu.sa, first seen 2025-05-12.
-    Discovery is unauthenticated; relying-party onboarding is not self-serve.
+    KFUPM runs an Elsevier Pure research information system at pure.kfupm.edu.sa and its Pure Web Services
+    REST API is reachable at /ws/api, authenticated with a Pure api-key header. The deployment, the tenant
+    and the research data are KFUPM's; the contract is Elsevier's. Its OpenAPI declares info.title "Pure
+    API", contact pure-support@elsevier.com and version 5.35.3-4 — the same document at least nine other
+    universities in this catalog were also credited with. It is recorded here as a relationship and is
+    deliberately NOT saved as a KFUPM contract. Score the interface against Elsevier's own repo. Pure
+    administration is itself fronted by KFUPM's SAML IdP (/admin/saml2/authenticate/pure).
+  humanURL: https://pure.kfupm.edu.sa/
+  baseURL: https://pure.kfupm.edu.sa/ws/api
+  tags:
+  - Research Information
+  - CRIS
+  - Tenant
+  - Vendor Contract
+  - Elsevier Pure
+  properties:
+  - type: Documentation
+    url: https://pure.kfupm.edu.sa/ws/api/
+  - type: ResearchPortal
+    url: https://pure.kfupm.edu.sa/
+  - type: OAI-PMH
+    url: https://pure.kfupm.edu.sa/ws/oai
+    name: >-
+      Pure OAI-PMH endpoint — live and unauthenticated, repositoryName "Pure OAI Repository", adminEmail
+      pure.admin@kfupm.edu.sa, OpenAIRE CERIF 1.2 profile. Elsevier's implementation on KFUPM's tenant,
+      so it is recorded here rather than credited as institutional conformance.
+- aid: kfupm:kfupm-discovery-api
+  name: King Fahd University of Petroleum & Minerals Discovery API
+  description: Unauthenticated metadata endpoints. All three fetched live 2026-08-30.
   humanURL: https://www.kfupm.edu.sa/
   baseURL: https://sts.kfupm.edu.sa
   tags:
-  - Identity Federation
-  - SAML
-  - OpenID Connect
-  - Authentication
-  - eduGAIN
-  - Single Sign-On
-  tags_raw:
-  - Identity Federation
-  - SAML
-  - OpenID Connect
-  - OAuth 2.0
-  - eduGAIN
-  - Single Sign-On
+  - discovery
   properties:
   - type: OpenAPI
-    url: openapi/kfupm-identity-federation-openapi.yml
+    url: openapi/kfupm-discovery-api-openapi.yml
   - type: Metadata
     url: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
   - type: OpenIDConnectDiscovery
@@ -124,106 +137,168 @@ apis:
     url: vocabulary/kfupm-vocabulary.yml
   - type: Lifecycle
     url: lifecycle/kfupm-lifecycle.yml
-- aid: kfupm:eprints-oai-pmh
-  name: KFUPM ePrints OAI-PMH Repository Interface
-  x-operator: institution
-  description: >-
-    Live OAI-PMH 2.0 harvesting interface for the KFUPM ePrints institutional repository
-    (EPrints 3.4.1), self-hosted on the university's own domain. repositoryIdentifier
-    eprints.kfupm.edu.sa, adminEmail eprints-system@kfupm.edu.sa, granularity to the second,
-    deletedRecord policy persistent. All six verbs verified live 2026-08-30; six metadata formats
-    offered (didl, mets, oai_bibl, oai_dc, rdf, uketd_dc). No authentication. No metadata,
-    data or submission policy is declared — the Identify response still carries the EPrints
-    defaults, so reuse rights for harvested metadata are undeclared.
-  humanURL: https://eprints.kfupm.edu.sa/
-  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
-  tags:
-  - OAI-PMH
-  - Research Repository
-  - Harvesting
-  - Open Access
-  - Theses
-  - Metadata
-  properties:
-  - type: OpenAPI
-    url: openapi/kfupm-eprints-oai-pmh-openapi.yml
   - type: Documentation
     url: https://eprints.kfupm.edu.sa/
-  - type: Conformance
-    url: conformance/kfupm-conformance.yml
   - type: Examples
     url: examples/kfupm-eprints-oai-identify.xml
   - type: Examples
     url: examples/kfupm-eprints-oai-getrecord.xml
   - type: Errors
     url: errors/kfupm-errors.yml
+  - type: JSONSchema
+    url: json-schema/kfupm-eprints-record-schema.json
+- aid: kfupm:kfupm-export-api
+  name: King Fahd University of Petroleum & Minerals Export API
+  description: Record-level export in a named format.
+  humanURL: https://www.kfupm.edu.sa/
+  baseURL: https://sts.kfupm.edu.sa
+  tags:
+  - export
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-export-api-openapi.yml
+  - type: Metadata
+    url: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
+  - type: OpenIDConnectDiscovery
+    url: https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration
+  - type: JWKS
+    url: https://sts.kfupm.edu.sa/adfs/discovery/keys
+  - type: Authentication
+    url: authentication/kfupm-authentication.yml
+  - type: Scopes
+    url: scopes/kfupm-scopes.yml
+  - type: Conformance
+    url: conformance/kfupm-conformance.yml
+  - type: Examples
+    url: examples/kfupm-sts-openid-configuration.json
   - type: Vocabulary
     url: vocabulary/kfupm-vocabulary.yml
   - type: Lifecycle
     url: lifecycle/kfupm-lifecycle.yml
-- aid: kfupm:eprints-export
-  name: KFUPM ePrints Export & Search (JSON)
-  x-operator: institution
-  description: >-
-    Record-level and search-level JSON from the same self-hosted KFUPM ePrints repository, served
-    without authentication. /cgi/export/eprint/{eprintid}/JSON/{filename} returns the full record
-    as application/json; /cgi/search/simple?q=…&output=JSON returns a JSON result set. The record
-    model carries a KFUPM-local `arabic_abstract` alongside `english_abstract`, KFUPM division and
-    subject codes, and embargo state on attached documents. It also exposes personal data —
-    depositor contact_email, advisor and committee names — and internal EPrints fields (`dir`,
-    `userid`). There is no published contract, rate limit or terms for these endpoints.
-  humanURL: https://eprints.kfupm.edu.sa/
-  baseURL: https://eprints.kfupm.edu.sa/cgi
-  tags:
-  - Research Repository
-  - Search
-  - JSON
-  - Open Access
-  - Theses
-  properties:
-  - type: OpenAPI
-    url: openapi/kfupm-eprints-export-openapi.yml
   - type: Documentation
     url: https://eprints.kfupm.edu.sa/
-  - type: JSONSchema
-    url: json-schema/kfupm-eprints-record-schema.json
+  - type: Examples
+    url: examples/kfupm-eprints-oai-identify.xml
+  - type: Examples
+    url: examples/kfupm-eprints-oai-getrecord.xml
   - type: Errors
     url: errors/kfupm-errors.yml
+  - type: JSONSchema
+    url: json-schema/kfupm-eprints-record-schema.json
+- aid: kfupm:kfupm-oai-pmh-api
+  name: King Fahd University of Petroleum & Minerals Oai Pmh API
+  description: OAI-PMH 2.0 protocol requests. All six verbs verified live 2026-08-30.
+  humanURL: https://www.kfupm.edu.sa/
+  baseURL: https://sts.kfupm.edu.sa
+  tags:
+  - oai-pmh
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-oai-pmh-api-openapi.yml
+  - type: Metadata
+    url: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
+  - type: OpenIDConnectDiscovery
+    url: https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration
+  - type: JWKS
+    url: https://sts.kfupm.edu.sa/adfs/discovery/keys
+  - type: Authentication
+    url: authentication/kfupm-authentication.yml
+  - type: Scopes
+    url: scopes/kfupm-scopes.yml
+  - type: Conformance
+    url: conformance/kfupm-conformance.yml
+  - type: Examples
+    url: examples/kfupm-sts-openid-configuration.json
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
   - type: Lifecycle
     url: lifecycle/kfupm-lifecycle.yml
-- aid: kfupm:pure-tenant
-  name: KFUPM Elsevier Pure Web Services (tenant deployment)
-  x-operator: tenant
-  x-vendor: Elsevier
-  x-vendor-product: Pure (Pure API 5.35.3-4)
-  description: >-
-    KFUPM runs an Elsevier Pure research information system at pure.kfupm.edu.sa and its Pure Web
-    Services REST API is reachable at /ws/api, authenticated with a Pure api-key header. The
-    deployment, the tenant and the research data are KFUPM's; the contract is Elsevier's. Its
-    OpenAPI declares info.title "Pure API", contact pure-support@elsevier.com and version
-    5.35.3-4 — the same document at least nine other universities in this catalog were also
-    credited with. It is recorded here as a relationship and is deliberately NOT saved as a KFUPM
-    contract. Score the interface against Elsevier's own repo. Pure administration is itself
-    fronted by KFUPM's SAML IdP (/admin/saml2/authenticate/pure).
-  humanURL: https://pure.kfupm.edu.sa/
-  baseURL: https://pure.kfupm.edu.sa/ws/api
-  tags:
-  - Research Information
-  - CRIS
-  - Tenant
-  - Vendor Contract
-  - Elsevier Pure
-  properties:
   - type: Documentation
-    url: https://pure.kfupm.edu.sa/ws/api/
-  - type: ResearchPortal
-    url: https://pure.kfupm.edu.sa/
-  - type: OAI-PMH
-    url: https://pure.kfupm.edu.sa/ws/oai
-    name: >-
-      Pure OAI-PMH endpoint — live and unauthenticated, repositoryName "Pure OAI Repository",
-      adminEmail pure.admin@kfupm.edu.sa, OpenAIRE CERIF 1.2 profile. Elsevier's implementation
-      on KFUPM's tenant, so it is recorded here rather than credited as institutional conformance.
+    url: https://eprints.kfupm.edu.sa/
+  - type: Examples
+    url: examples/kfupm-eprints-oai-identify.xml
+  - type: Examples
+    url: examples/kfupm-eprints-oai-getrecord.xml
+  - type: Errors
+    url: errors/kfupm-errors.yml
+  - type: JSONSchema
+    url: json-schema/kfupm-eprints-record-schema.json
+- aid: kfupm:kfupm-oauth2-api
+  name: King Fahd University of Petroleum & Minerals Oauth2 API
+  description: OAuth 2.0 / OpenID Connect endpoints as declared by KFUPM's own discovery document.
+  humanURL: https://www.kfupm.edu.sa/
+  baseURL: https://sts.kfupm.edu.sa
+  tags:
+  - oauth2
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-oauth2-api-openapi.yml
+  - type: Metadata
+    url: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
+  - type: OpenIDConnectDiscovery
+    url: https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration
+  - type: JWKS
+    url: https://sts.kfupm.edu.sa/adfs/discovery/keys
+  - type: Authentication
+    url: authentication/kfupm-authentication.yml
+  - type: Scopes
+    url: scopes/kfupm-scopes.yml
+  - type: Conformance
+    url: conformance/kfupm-conformance.yml
+  - type: Examples
+    url: examples/kfupm-sts-openid-configuration.json
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: Lifecycle
+    url: lifecycle/kfupm-lifecycle.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Examples
+    url: examples/kfupm-eprints-oai-identify.xml
+  - type: Examples
+    url: examples/kfupm-eprints-oai-getrecord.xml
+  - type: Errors
+    url: errors/kfupm-errors.yml
+  - type: JSONSchema
+    url: json-schema/kfupm-eprints-record-schema.json
+- aid: kfupm:kfupm-search-api
+  name: King Fahd University of Petroleum & Minerals Search API
+  description: Free-text search with a machine-readable output format.
+  humanURL: https://www.kfupm.edu.sa/
+  baseURL: https://sts.kfupm.edu.sa
+  tags:
+  - search
+  properties:
+  - type: OpenAPI
+    url: openapi/kfupm-search-api-openapi.yml
+  - type: Metadata
+    url: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
+  - type: OpenIDConnectDiscovery
+    url: https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration
+  - type: JWKS
+    url: https://sts.kfupm.edu.sa/adfs/discovery/keys
+  - type: Authentication
+    url: authentication/kfupm-authentication.yml
+  - type: Scopes
+    url: scopes/kfupm-scopes.yml
+  - type: Conformance
+    url: conformance/kfupm-conformance.yml
+  - type: Examples
+    url: examples/kfupm-sts-openid-configuration.json
+  - type: Vocabulary
+    url: vocabulary/kfupm-vocabulary.yml
+  - type: Lifecycle
+    url: lifecycle/kfupm-lifecycle.yml
+  - type: Documentation
+    url: https://eprints.kfupm.edu.sa/
+  - type: Examples
+    url: examples/kfupm-eprints-oai-identify.xml
+  - type: Examples
+    url: examples/kfupm-eprints-oai-getrecord.xml
+  - type: Errors
+    url: errors/kfupm-errors.yml
+  - type: JSONSchema
+    url: json-schema/kfupm-eprints-record-schema.json
 common:
   - type: Website
     url: https://www.kfupm.edu.sa/
