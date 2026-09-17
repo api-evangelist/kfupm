@@ -223,16 +223,16 @@ apis:
     url: errors/kfupm-errors.yml
   - type: JSONSchema
     url: json-schema/kfupm-eprints-record-schema.json
-- aid: kfupm:kfupm-oauth2-api
-  name: King Fahd University of Petroleum & Minerals Oauth2 API
-  description: OAuth 2.0 / OpenID Connect endpoints as declared by KFUPM's own discovery document.
+- aid: kfupm:kfupm-search-api
+  name: King Fahd University of Petroleum & Minerals Search API
+  description: Free-text search with a machine-readable output format.
   humanURL: https://www.kfupm.edu.sa/
   baseURL: https://sts.kfupm.edu.sa
   tags:
-  - oauth2
+  - search
   properties:
   - type: OpenAPI
-    url: openapi/kfupm-oauth2-api-openapi.yml
+    url: openapi/kfupm-search-api-openapi.yml
   - type: Metadata
     url: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
   - type: OpenIDConnectDiscovery
@@ -261,16 +261,16 @@ apis:
     url: errors/kfupm-errors.yml
   - type: JSONSchema
     url: json-schema/kfupm-eprints-record-schema.json
-- aid: kfupm:kfupm-search-api
-  name: King Fahd University of Petroleum & Minerals Search API
-  description: Free-text search with a machine-readable output format.
-  humanURL: https://www.kfupm.edu.sa/
-  baseURL: https://sts.kfupm.edu.sa
+- aid: kfupm:kfupm-oauth2-api
+  name: King Fahd University of Petroleum & Minerals Oauth2 API
+  description: OAuth 2.0 / OpenID Connect endpoints as declared by KFUPM's own discovery document.
+  humanURL: https://pure.kfupm.edu.sa/
+  baseURL: https://pure.kfupm.edu.sa/ws/api
   tags:
-  - search
+  - oauth2
   properties:
   - type: OpenAPI
-    url: openapi/kfupm-search-api-openapi.yml
+    url: openapi/kfupm-oauth2-api-openapi.yml
   - type: Metadata
     url: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
   - type: OpenIDConnectDiscovery
