@@ -94,6 +94,12 @@ apis:
   baseURL: https://pure.kfupm.edu.sa/ws/api
   tags:
   - Research Information
+  - CRI
+  - Tenants
+  - Vendor Contract
+  - Elsevier Pure
+  tags_raw:
+  - Research Information
   - CRIS
   - Tenant
   - Vendor Contract
@@ -115,6 +121,8 @@ apis:
   humanURL: https://www.kfupm.edu.sa/
   baseURL: https://sts.kfupm.edu.sa
   tags:
+  - Discovery
+  tags_raw:
   - discovery
   properties:
   - type: OpenAPI
@@ -153,6 +161,8 @@ apis:
   humanURL: https://www.kfupm.edu.sa/
   baseURL: https://sts.kfupm.edu.sa
   tags:
+  - Export
+  tags_raw:
   - export
   properties:
   - type: OpenAPI
@@ -191,6 +201,8 @@ apis:
   humanURL: https://www.kfupm.edu.sa/
   baseURL: https://sts.kfupm.edu.sa
   tags:
+  - OAI-PMH
+  tags_raw:
   - oai-pmh
   properties:
   - type: OpenAPI
@@ -229,6 +241,8 @@ apis:
   humanURL: https://www.kfupm.edu.sa/
   baseURL: https://sts.kfupm.edu.sa
   tags:
+  - Search
+  tags_raw:
   - search
   properties:
   - type: OpenAPI
@@ -267,6 +281,8 @@ apis:
   humanURL: https://pure.kfupm.edu.sa/
   baseURL: https://pure.kfupm.edu.sa/ws/api
   tags:
+  - Authentication
+  tags_raw:
   - oauth2
   properties:
   - type: OpenAPI
