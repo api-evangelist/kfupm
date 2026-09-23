@@ -1,0 +1,50 @@
+generated: '2026-08-30'
+method: probed
+source: >-
+  Live error responses from https://eprints.kfupm.edu.sa/cgi/oai2 (verb=Bogus) and HTTP status
+  observation across kfupm.edu.sa hosts, 2026-08-30.
+provider: King Fahd University of Petroleum & Minerals
+providerId: kfupm
+x-operator: institution
+description: >-
+  Error behaviour observed on KFUPM's institution-operated surfaces. KFUPM publishes no error
+  reference; everything below was provoked and observed.
+errors:
+  - surface: KFUPM ePrints OAI-PMH
+    transport_status: 200
+    note: >-
+      OAI-PMH protocol errors are returned with HTTP 200 and an <error code="..."> element. A
+      harvester that reads only the HTTP status will treat a failed request as a success.
+    codes:
+      - code: badVerb
+        observed_at: https://eprints.kfupm.edu.sa/cgi/oai2?verb=Bogus
+        meaning: The verb argument is not a legal OAI-PMH verb.
+      - code: badArgument
+        observed_at: https://eprints.kfupm.edu.sa/cgi/oai2?verb=Bogus
+        meaning: Returned alongside badVerb for the same malformed request.
+  - surface: KFUPM ePrints search
+    transport_status: 302
+    note: >-
+      /cgi/search?q=… 302-redirects to /cgi/search/simple?q=…; a client that does not follow
+      redirects receives an HTML 302 body rather than JSON, even with output=JSON.
+    observed_at: https://eprints.kfupm.edu.sa/cgi/search?q=petroleum&output=JSON
+  - surface: KFUPM Library
+    transport_status: 403
+    note: >-
+      library.kfupm.edu.sa is behind a Cloudflare bot challenge and returns 403 with an
+      "Attention Required! | Cloudflare" body to non-browser clients. The host is live; it is
+      machine-unreadable.
+    observed_at: https://library.kfupm.edu.sa/
+  - surface: KFUPM main site
+    transport_status: 404
+    note: >-
+      www.kfupm.edu.sa serves a 404 with a full 31 KB HTML page body for /robots.txt,
+      /llms.txt and /sitemap.xml. There is no robots.txt, no sitemap and no llms.txt.
+    observed_at: https://www.kfupm.edu.sa/robots.txt
+  - surface: Elsevier Pure Web Services (tenant)
+    transport_status: 401
+    note: >-
+      https://pure.kfupm.edu.sa/ws/api/524/openapi.json returns 401 with the body
+      "401: Request not authorized. Please provide a valid API key for access." The tenant's
+      OpenAPI is not publicly readable.
+    observed_at: https://pure.kfupm.edu.sa/ws/api/524/openapi.json

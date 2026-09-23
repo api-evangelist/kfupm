@@ -1,0 +1,188 @@
+# generated: '2026-08-30'
+# method: derived
+# source: |
+#   - live fetch of https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration (200, application/json)
+#   - live fetch of https://sts.kfupm.edu.sa/adfs/discovery/keys (200, 2 RS256 signing keys)
+#   - live fetch of https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
+#     (200, application/samlmetadata+xml, 80 KB, entityID http://sts.kfupm.edu.sa/adfs/services/trust)
+#   - eduGAIN entity 671205, registrar https://www.maeen.sa (SA-MIF), scope kfupm.edu.sa
+#   All probed 2026-08-30.
+# x-operator: institution
+# The authorize / token / userinfo / logout / devicecode endpoints below are NOT guessed: each is
+# declared by KFUPM's own OIDC discovery document. They were not exercised (that needs a
+# registered client), and are described only to the extent the discovery document declares them.
+openapi: 3.1.0
+info:
+  title: KFUPM Identity Federation (SAML 2.0 + OpenID Connect)
+  summary: >-
+    KFUPM's own identity provider — SAML 2.0 metadata registered in eduGAIN via the Saudi
+    federation MAEEN, plus an OpenID Connect / OAuth 2.0 authorization server.
+  description: >-
+    King Fahd University of Petroleum & Minerals operates its own identity provider at
+    sts.kfupm.edu.sa (Microsoft AD FS). It is the one machine-readable surface at KFUPM that is
+    institution-operated by definition: no vendor tenant, no hosted repository, no student
+    project.
+
+    Two protocol bindings are published without authentication. SAML 2.0 federation metadata is
+    served at /FederationMetadata/2007-06/FederationMetadata.xml — an 80 KB signed
+    EntityDescriptor with entityID `http://sts.kfupm.edu.sa/adfs/services/trust`, an
+    IDPSSODescriptor with HTTP-Redirect and HTTP-POST SingleSignOnService bindings at
+    /adfs/ls/, 63 declared attributes, and persistent / transient / emailAddress NameID formats.
+    The same entity is registered in eduGAIN (entity 671205) by MAEEN (SA-MIF) with scope
+    kfupm.edu.sa, first seen 2025-05-12. OpenID Connect discovery is served at
+    /adfs/.well-known/openid-configuration, with a JWKS of two RS256 signing keys.
+  version: '2026-08-30'
+  contact:
+    name: King Fahd University of Petroleum & Minerals
+    url: https://www.kfupm.edu.sa/
+servers:
+  - url: https://sts.kfupm.edu.sa
+    description: KFUPM AD FS identity provider — institution-operated
+tags:
+  - name: discovery
+    description: Unauthenticated metadata endpoints. All three fetched live 2026-08-30.
+  - name: oauth2
+    description: OAuth 2.0 / OpenID Connect endpoints as declared by KFUPM's own discovery document.
+paths:
+  /FederationMetadata/2007-06/FederationMetadata.xml:
+    get:
+      tags: [discovery]
+      operationId: getSamlFederationMetadata
+      summary: SAML 2.0 federation metadata
+      description: >-
+        Signed SAML 2.0 EntityDescriptor for entityID http://sts.kfupm.edu.sa/adfs/services/trust.
+        Contains IDPSSODescriptor and SPSSODescriptor roles, SingleSignOnService (HTTP-Redirect and
+        HTTP-POST) at https://sts.kfupm.edu.sa/adfs/ls/, four SingleLogoutService endpoints, 63
+        attributes, and protocolSupportEnumeration for SAML 2.0 and WS-Federation / WS-Trust.
+      responses:
+        '200':
+          description: Signed SAML 2.0 metadata document.
+          content:
+            application/samlmetadata+xml:
+              schema:
+                type: string
+                contentMediaType: application/samlmetadata+xml
+  /adfs/.well-known/openid-configuration:
+    get:
+      tags: [discovery]
+      operationId: getOpenIdConfiguration
+      summary: OpenID Connect discovery document
+      description: >-
+        OIDC discovery for issuer https://sts.kfupm.edu.sa/adfs. Declares scopes_supported
+        [profile, allatclaims, user_impersonation, logon_cert, openid, email, vpn_cert,
+        winhello_cert, aza], grant types including authorization_code, refresh_token,
+        client_credentials, jwt-bearer and device_code, response types code / id_token /
+        code id_token / id_token token / code token / code id_token token, pairwise subject
+        types, RS256 id_token signing, and front-channel logout support.
+      responses:
+        '200':
+          description: OIDC provider configuration.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [issuer, authorization_endpoint, token_endpoint, jwks_uri]
+                properties:
+                  issuer: { type: string, format: uri }
+                  authorization_endpoint: { type: string, format: uri }
+                  token_endpoint: { type: string, format: uri }
+                  userinfo_endpoint: { type: string, format: uri }
+                  jwks_uri: { type: string, format: uri }
+                  end_session_endpoint: { type: string, format: uri }
+                  device_authorization_endpoint: { type: string, format: uri }
+                  scopes_supported:
+                    type: array
+                    items: { type: string }
+                  grant_types_supported:
+                    type: array
+                    items: { type: string }
+                  response_types_supported:
+                    type: array
+                    items: { type: string }
+                  claims_supported:
+                    type: array
+                    items: { type: string }
+  /adfs/discovery/keys:
+    get:
+      tags: [discovery]
+      operationId: getJwks
+      summary: JSON Web Key Set
+      description: >-
+        JWKS for the issuer. Two RSA keys, alg RS256, use sig, verified live 2026-08-30.
+      responses:
+        '200':
+          description: JWKS document.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [keys]
+                properties:
+                  keys:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        kty: { type: string }
+                        use: { type: string }
+                        alg: { type: string }
+                        kid: { type: string }
+  /adfs/ls/:
+    get:
+      tags: [discovery]
+      operationId: samlSingleSignOn
+      summary: SAML 2.0 SingleSignOnService
+      description: >-
+        SAML 2.0 SSO endpoint declared in the federation metadata for both the HTTP-Redirect and
+        HTTP-POST bindings. Requires a SAMLRequest from a registered service provider; not
+        exercised during profiling.
+      responses:
+        '200':
+          description: SAML response or a login interaction, depending on the request binding.
+  /adfs/oauth2/authorize/:
+    get:
+      tags: [oauth2]
+      operationId: oauthAuthorize
+      summary: OAuth 2.0 authorization endpoint
+      description: >-
+        Declared as `authorization_endpoint` by KFUPM's OIDC discovery document. Requires a
+        registered client; not exercised during profiling.
+      responses:
+        '302':
+          description: Redirect carrying an authorization code or an error.
+  /adfs/oauth2/token/:
+    post:
+      tags: [oauth2]
+      operationId: oauthToken
+      summary: OAuth 2.0 token endpoint
+      description: >-
+        Declared as `token_endpoint` by KFUPM's OIDC discovery document. Client authentication
+        methods declared: client_secret_post, client_secret_basic, private_key_jwt,
+        windows_client_authentication. Requires a registered client; not exercised.
+      responses:
+        '200':
+          description: Token response.
+          content:
+            application/json:
+              schema:
+                type: object
+  /adfs/userinfo:
+    get:
+      tags: [oauth2]
+      operationId: oauthUserinfo
+      summary: OpenID Connect UserInfo endpoint
+      description: >-
+        Declared as `userinfo_endpoint` by KFUPM's OIDC discovery document. Requires a bearer
+        access token; not exercised.
+      responses:
+        '200':
+          description: UserInfo claims.
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  securitySchemes:
+    kfupmOidc:
+      type: openIdConnect
+      openIdConnectUrl: https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration

@@ -1,0 +1,104 @@
+# x-archived-from: kfupm-eprints-export-openapi.yml
+# x-archived-on: 2026-09-16
+# generated: '2026-08-30'
+# method: derived
+# source: live probes of https://eprints.kfupm.edu.sa/cgi/export/... and
+#   https://eprints.kfupm.edu.sa/cgi/search/simple?output=JSON, 2026-08-30.
+# x-operator: institution
+# Every path and parameter below returned a live application/json response on 2026-08-30.
+# KFUPM publishes no OpenAPI for these endpoints. Pristine pre-refine copy.
+openapi: 3.1.0
+info:
+  title: KFUPM ePrints Export & Search (JSON)
+  summary: Institution-operated JSON export and search output from the KFUPM ePrints repository.
+  description: >-
+    The KFUPM ePrints repository (EPrints 3.4.1, eprints.kfupm.edu.sa) serves record-level and
+    search-result-level JSON without authentication. `/cgi/export/eprint/{eprintid}/JSON/{filename}`
+    returns the full record — including Arabic and English abstracts, creators, subjects and
+    document metadata — as application/json. `/cgi/search/simple?output=JSON` returns a JSON
+    result set for a free-text query. Both were verified live on 2026-08-30 (a single record
+    export returned 14 KB of JSON; a `petroleum` search returned 281 KB).
+
+    Derived by probe. KFUPM publishes no OpenAPI, no rate-limit statement and no terms for
+    these endpoints; harvest politely.
+  version: '3.4.1'
+  contact:
+    name: KFUPM ePrints Administrator
+    email: eprints-system@kfupm.edu.sa
+    url: https://eprints.kfupm.edu.sa/
+servers:
+  - url: https://eprints.kfupm.edu.sa/cgi
+    description: KFUPM ePrints (EPrints 3.4.1) — institution-operated, no authentication
+tags:
+  - name: export
+    description: Record-level export in a named format.
+  - name: search
+    description: Free-text search with a machine-readable output format.
+paths:
+  /export/eprint/{eprintid}/JSON/{filename}:
+    get:
+      tags: [export]
+      operationId: exportEprintJson
+      summary: Export one ePrint record as JSON
+      description: >-
+        Returns the complete record for one eprint id as application/json. Verified live with
+        eprintid 144629, which returned a 14 KB document carrying `arabic_abstract`, `abstract`,
+        `creators`, `subjects`, `documents` and `copyright` fields.
+      parameters:
+        - name: eprintid
+          in: path
+          required: true
+          description: Numeric ePrint identifier, the same number used in the OAI identifier.
+          schema:
+            type: integer
+            examples: [144629]
+        - name: filename
+          in: path
+          required: true
+          description: >-
+            EPrints requires a trailing filename segment; any name works and it does not affect
+            the payload. Convention is `<repo>-eprint-<eprintid>.js`.
+          schema:
+            type: string
+            examples: ['kfupm-eprint-144629.js']
+      responses:
+        '200':
+          description: The record as JSON.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /search/simple:
+    get:
+      tags: [search]
+      operationId: searchSimple
+      summary: Free-text search over the repository
+      description: >-
+        Free-text search. With `output=JSON` the result set is returned as application/json.
+        Verified live with q=petroleum. Requesting `/cgi/search?...` 302-redirects here.
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Free-text query.
+          schema:
+            type: string
+            examples: ['petroleum']
+        - name: output
+          in: query
+          required: false
+          description: Output format. `JSON` was the value verified live.
+          schema:
+            type: string
+            examples: ['JSON']
+      responses:
+        '200':
+          description: Search results in the requested output format.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object

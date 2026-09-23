@@ -3,7 +3,7 @@ name: King Fahd University of Petroleum & Minerals
 description: King Fahd University of Petroleum & Minerals public developer/API footprint review for APIs.json cataloging.
 url: https://raw.githubusercontent.com/api-evangelist/kfupm/refs/heads/main/review.yml
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-30'
 reviews:
   - date: '2026-06-03'
     rating: 2
@@ -55,3 +55,81 @@ reviews:
       - url: https://www.linkedin.com/school/kfupm/
         status: 999
         note: LinkedIn school page; 999 is LinkedIn bot-block, page exists in browser.
+  - date: '2026-08-30'
+    rating: 2
+    summary: >-
+      University-pipeline re-profile. Operator attribution was settled before anything was saved.
+      The 37 OpenAPI definitions this repo held as KFUPM's were one Elsevier Pure Web Services
+      contract (info.title "Pure API", contact pure-support@elsevier.com, version 5.35.3-4)
+      served from KFUPM's Pure tenant, and at least nine other universities in this catalog ship
+      the same titles. All 37, their _original source and every artifact derived from them —
+      collections, json-schema, json-structure, examples, rules, vocabulary, json-ld,
+      authentication, agentic-access, 124 files — were removed, and the Pure deployment is now
+      recorded once as a tenant relationship. Note that the Pure OpenAPI on this tenant returns
+      401 to an anonymous client, so those specs never came from KFUPM's host.
+
+      Three institution-operated surfaces were found and verified that had never been catalogued.
+      The significant one is identity: KFUPM runs its own AD FS identity provider at
+      sts.kfupm.edu.sa, publishing signed SAML 2.0 federation metadata and an OpenID Connect
+      discovery document, and registered in eduGAIN as entity 671205 by MAEEN (SA-MIF) with
+      scope kfupm.edu.sa. The other two are on the self-hosted ePrints repository: a fully
+      working OAI-PMH 2.0 interface (all six verbs, six metadata formats) and unauthenticated
+      JSON record export and search. KFUPM publishes no OpenAPI for any of them; the three
+      descriptions now in this repo were derived by probe and are marked as such.
+
+      Expect this to lower KFUPM's score. The previous score was substantially Elsevier's
+      contract quality.
+    endpoints:
+      - url: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
+        status: 200
+        note: >-
+          Signed SAML 2.0 metadata, 80232 bytes, entityID
+          http://sts.kfupm.edu.sa/adfs/services/trust, IDPSSODescriptor, 63 attributes.
+      - url: https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration
+        status: 200
+        note: OIDC discovery for issuer https://sts.kfupm.edu.sa/adfs.
+      - url: https://sts.kfupm.edu.sa/adfs/discovery/keys
+        status: 200
+        note: JWKS, two RSA RS256 signing keys.
+      - url: https://technical.edugain.org/api.php?action=list_entities&format=json
+        status: 200
+        note: eduGAIN entity 671205, regauth https://www.maeen.sa, SA-MIF, scope kfupm.edu.sa.
+      - url: https://eprints.kfupm.edu.sa/cgi/oai2?verb=Identify
+        status: 200
+        note: OAI-PMH 2.0, KFUPM ePrints, EPrints 3.4.1, adminEmail eprints-system@kfupm.edu.sa.
+      - url: https://eprints.kfupm.edu.sa/cgi/oai2?verb=ListMetadataFormats
+        status: 200
+        note: didl, mets, oai_bibl, oai_dc, rdf, uketd_dc.
+      - url: https://eprints.kfupm.edu.sa/cgi/export/eprint/144629/JSON/kfupm-eprint-144629.js
+        status: 200
+        note: application/json, 14167 bytes; carries KFUPM-local arabic_abstract field.
+      - url: https://eprints.kfupm.edu.sa/cgi/search/simple?q=petroleum&output=JSON
+        status: 200
+        note: application/json, 287836 bytes.
+      - url: https://pure.kfupm.edu.sa/ws/api/524/openapi.json
+        status: 401
+        note: Tenant Pure OpenAPI is not publicly fetchable.
+      - url: https://pure.kfupm.edu.sa/ws/oai?verb=Identify
+        status: 200
+        note: >-
+          Pure's own OAI-PMH, unauthenticated, OpenAIRE CERIF 1.2. Tenant-operated, not credited
+          as institutional conformance.
+      - url: https://registrar.kfupm.edu.sa/courses-classes/course-offering1/
+        status: 200
+        note: >-
+          Institution-operated course offering; POST /course-offerings returns HTML only. Real
+          course rows confirmed (COE 202-01 etc.), no machine-readable format.
+      - url: https://library.kfupm.edu.sa/
+        status: 403
+        note: Live behind a Cloudflare bot challenge. Machine-unreadable, not dead.
+      - url: https://library-web.kfupm.edu.sa/
+        status: 200
+        note: KFUPM Library web; no documented public API found.
+      - url: https://www.kfupm.edu.sa/robots.txt
+        status: 404
+        note: No robots.txt, no sitemap.xml, no llms.txt on the university domain.
+      - url: https://github.com/kfupm
+        status: 200
+        note: >-
+          Empty unverified org — 0 public repos, no description, untouched since 2019. Dropped
+          as a pointer; university ownership is unevidenced.

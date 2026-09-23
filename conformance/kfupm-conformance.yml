@@ -1,0 +1,154 @@
+generated: '2026-08-30'
+method: probed
+source: >-
+  Live probes of KFUPM's own hosts on 2026-08-30, plus the eduGAIN technical metadata service.
+  Every claim below points at an exact location in a document that was fetched, not at a prose
+  statement on a web page.
+provider: King Fahd University of Petroleum & Minerals
+providerId: kfupm
+regime: education
+description: >-
+  Domain-standard conformance for the education regime, evidenced from KFUPM's institution-operated
+  surfaces only. Nothing here is drawn from the Elsevier Pure tenant deployment — that contract is
+  Elsevier's and its conformance belongs to Elsevier's repo. REWARD-ONLY: standards KFUPM does not
+  demonstrably implement are listed under `not_observed`, not scored.
+standards:
+  - standard: oai-pmh
+    name: Open Archives Initiative Protocol for Metadata Harvesting 2.0
+    status: conformant
+    x-operator: institution
+    evidence:
+      - url: https://eprints.kfupm.edu.sa/cgi/oai2?verb=Identify
+        status: 200
+        location: OAI-PMH/Identify/protocolVersion
+        observed: '2.0'
+        note: >-
+          repositoryName "KFUPM ePrints", baseURL https://eprints.kfupm.edu.sa/cgi/oai2,
+          adminEmail eprints-system@kfupm.edu.sa, repositoryIdentifier eprints.kfupm.edu.sa,
+          granularity YYYY-MM-DDThh:mm:ssZ, deletedRecord persistent, EPrints 3.4.1.
+      - url: https://eprints.kfupm.edu.sa/cgi/oai2?verb=ListMetadataFormats
+        status: 200
+        location: OAI-PMH/ListMetadataFormats/metadataFormat/metadataPrefix
+        observed: [didl, mets, oai_bibl, oai_dc, rdf, uketd_dc]
+      - url: https://eprints.kfupm.edu.sa/cgi/oai2?verb=ListSets
+        status: 200
+        location: OAI-PMH/ListSets/set
+        observed: 'hex-encoded setSpecs, e.g. 7374617475733D707562 = "Status = Published"'
+      - url: https://eprints.kfupm.edu.sa/cgi/oai2?verb=ListIdentifiers&metadataPrefix=oai_dc
+        status: 200
+        location: OAI-PMH/ListIdentifiers/header/identifier
+        observed: 'oai:eprints.kfupm.edu.sa:12 …'
+      - url: https://eprints.kfupm.edu.sa/cgi/oai2?verb=ListRecords&metadataPrefix=oai_dc
+        status: 200
+        location: OAI-PMH/ListRecords/record
+      - url: https://eprints.kfupm.edu.sa/cgi/oai2?verb=GetRecord&identifier=oai:eprints.kfupm.edu.sa:144629&metadataPrefix=oai_dc
+        status: 200
+        location: OAI-PMH/GetRecord/record/metadata/oai_dc:dc/dc:title
+        observed: >-
+          Spatiotemporal and Spectral Characterization of Eeg-Based Speech in Overt and Covert
+          Conditions
+      - url: https://eprints.kfupm.edu.sa/cgi/oai2?verb=Bogus
+        status: 200
+        location: OAI-PMH/error/@code
+        observed: [badVerb, badArgument]
+    gaps:
+      - >-
+        Identify declares no metadataPolicy, dataPolicy or submissionPolicy — all three carry the
+        EPrints default text "This server has not yet been fully configured", so reuse rights for
+        harvested metadata are undeclared.
+  - standard: saml
+    name: SAML 2.0 identity provider metadata
+    status: conformant
+    x-operator: institution
+    evidence:
+      - url: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
+        status: 200
+        content_type: application/samlmetadata+xml
+        bytes: 80232
+        location: EntityDescriptor/@entityID
+        observed: http://sts.kfupm.edu.sa/adfs/services/trust
+      - url: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
+        status: 200
+        location: EntityDescriptor/IDPSSODescriptor/@protocolSupportEnumeration
+        observed: 'urn:oasis:names:tc:SAML:2.0:protocol'
+      - url: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
+        status: 200
+        location: EntityDescriptor/IDPSSODescriptor/SingleSignOnService/@Location
+        observed: https://sts.kfupm.edu.sa/adfs/ls/
+        note: 'bindings HTTP-Redirect and HTTP-POST; 4 SingleLogoutService endpoints; 63 attributes'
+      - url: https://technical.edugain.org/api.php?action=list_entities&format=json
+        status: 200
+        location: 'entity 671205'
+        observed:
+          entityid: http://sts.kfupm.edu.sa/adfs/services/trust
+          regauth: https://www.maeen.sa
+          code: SA-MIF
+          roledesc: IDPSSODescriptor
+          scopes: kfupm.edu.sa
+          first_seen: '2025-05-12'
+        note: >-
+          KFUPM is a registered eduGAIN identity provider via MAEEN, the Saudi identity federation.
+    gaps:
+      - >-
+        eduGAIN entity 671205 reports eccs_status 3, sirtfi_status 0 and no coco_status — the
+        entity carries neither a REFEDS Sirtfi assertion nor a GEANT Data Protection Code of
+        Conduct entity category.
+not_observed:
+  - standard: shibboleth
+    detail: >-
+      KFUPM federates with SAML 2.0 but the IdP is Microsoft AD FS, not Shibboleth. No Shibboleth
+      software or shibboleth-specific metadata was observed. Recorded as not applicable rather
+      than as a gap.
+  - standard: scim
+    detail: 'No SCIM endpoint found on any kfupm.edu.sa host.'
+  - standard: lti
+    detail: 'No LTI tool or platform registration surface found.'
+  - standard: oneroster
+    detail: 'No OneRoster endpoint found.'
+  - standard: ed-fi
+    detail: 'Ed-Fi is a US K-12 / state-agency standard; not applicable to a Saudi university.'
+  - standard: caliper
+    detail: 'No Caliper analytics endpoint found.'
+  - standard: qti
+    detail: 'No QTI assessment interchange surface found.'
+  - standard: orcid
+    detail: >-
+      ORCID identifiers appear inside the Elsevier Pure tenant deployment at pure.kfupm.edu.sa.
+      That is Elsevier's integration, not KFUPM's own implementation, so it is not credited here.
+      No ORCID identifiers were observed in the institution-operated ePrints oai_dc output sampled.
+  - standard: datacite
+    detail: >-
+      ListMetadataFormats on the ePrints endpoint offers didl, mets, oai_bibl, oai_dc, rdf and
+      uketd_dc — no oai_datacite format is exposed.
+  - standard: crossref
+    detail: 'No Crossref deposit or query surface operated by the institution was found.'
+tenant_operated_not_credited:
+  - standard: oai-pmh
+    surface: Elsevier Pure OAI-PMH on the KFUPM tenant
+    x-operator: tenant
+    evidence:
+      - url: https://pure.kfupm.edu.sa/ws/oai?verb=Identify
+        status: 200
+        location: OAI-PMH/Identify
+        observed:
+          repositoryName: Pure OAI Repository
+          baseURL: https://pure.kfupm.edu.sa/ws/oai
+          protocolVersion: '2.0'
+          adminEmail: pure.admin@kfupm.edu.sa
+          earliestDatestamp: '2022-09-28T08:45:22Z'
+          deletedRecord: 'no'
+          schemaLocation: https://www.openaire.eu/cerif-profile/1.2/
+    detail: >-
+      Live, unauthenticated and OpenAIRE CERIF 1.2 conformant — but it is Elsevier's OAI
+      implementation shipped with Pure, running on KFUPM's tenant. The data is KFUPM's; the
+      conformance is Elsevier's. Recorded so the surface is not lost, deliberately not credited.
+  - standard: pure-web-services
+    surface: Elsevier Pure Web Services REST API on the KFUPM tenant
+    x-operator: tenant
+    evidence:
+      - url: https://pure.kfupm.edu.sa/ws/api/524/openapi.json
+        status: 401
+        observed: 'Request not authorized. Please provide a valid API key for access.'
+    detail: >-
+      The Pure OpenAPI is not publicly fetchable from this tenant. The 37 Pure specs previously
+      held in this repo therefore did not come from KFUPM's host at all.

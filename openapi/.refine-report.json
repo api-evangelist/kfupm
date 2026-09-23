@@ -1,0 +1,39 @@
+{
+  "provider": "kfupm",
+  "sources": [
+    "_original/kfupm-eprints-export-openapi.yml",
+    "_original/kfupm-eprints-oai-pmh-openapi.yml",
+    "_original/kfupm-identity-federation-openapi.yml"
+  ],
+  "outputs": [
+    "kfupm-export-api-openapi.yml",
+    "kfupm-search-api-openapi.yml",
+    "kfupm-oai-pmh-api-openapi.yml",
+    "kfupm-discovery-api-openapi.yml",
+    "kfupm-oauth2-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "3 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "kfupm-eprints-export-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "kfupm-eprints-oai-pmh-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "kfupm-identity-federation-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: kfupm-o-auth2-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 6 total)"
+  ],
+  "skipped": [
+    "_original/kfupm-identity-federation-openapi_2.yml: archived document superseded by a larger archived document",
+    "_original/kfupm-eprints-oai-pmh-openapi_2.yml: archived document superseded by a larger archived document",
+    "_original/kfupm-eprints-export-openapi_2.yml: archived document superseded by a larger archived document",
+    "kfupm-discovery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kfupm-export-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kfupm-o-auth2-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kfupm-oai-pmh-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kfupm-search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

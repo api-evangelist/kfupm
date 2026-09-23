@@ -1,0 +1,50 @@
+openapi: 3.2.0
+info:
+  title: KFUPM ePrints & Search (JSON) Export API
+  summary: Institution-operated JSON export and search output from the KFUPM ePrints repository.
+  description: The KFUPM ePrints repository (EPrints 3.4.1, eprints.kfupm.edu.sa) serves record-level and search-result-level JSON without authentication.
+  version: 3.4.1
+  contact:
+    name: KFUPM ePrints Administrator
+    email: eprints-system@kfupm.edu.sa
+    url: https://eprints.kfupm.edu.sa/
+servers:
+- url: https://eprints.kfupm.edu.sa/cgi
+  description: KFUPM ePrints (EPrints 3.4.1) — institution-operated, no authentication
+tags:
+- name: Export
+  description: Record-level export in a named format.
+paths:
+  /export/eprint/{eprintid}/JSON/{filename}:
+    get:
+      tags:
+      - Export
+      operationId: exportEprintJson
+      summary: Export one ePrint record as JSON
+      description: Returns the complete record for one eprint id as application/json. Verified live with eprintid 144629, which returned a 14 KB document carrying `arabic_abstract`, `abstract`, `creators`, `subjects`, `documents` and `copyright` fields.
+      parameters:
+      - name: eprintid
+        in: path
+        required: true
+        description: Numeric ePrint identifier, the same number used in the OAI identifier.
+        schema:
+          type: integer
+          examples:
+          - 144629
+      - name: filename
+        in: path
+        required: true
+        description: EPrints requires a trailing filename segment; any name works and it does not affect the payload. Convention is `<repo>-eprint-<eprintid>.js`.
+        schema:
+          type: string
+          examples:
+          - kfupm-eprint-144629.js
+      responses:
+        '200':
+          description: The record as JSON.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object

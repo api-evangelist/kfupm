@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kfupm/main/json-schema/kfupm-eprints-record-schema.json",
+  "title": "KFUPM ePrints Record",
+  "description": "JSON Schema for a record returned by the KFUPM ePrints JSON export endpoint (/cgi/export/eprint/{eprintid}/JSON/{filename}). Derived from a live 2026-08-30 probe of the real endpoint, not from EPrints documentation. Field names and types are exactly those observed. Note the KFUPM-local `arabic_abstract` field alongside `english_abstract` — a genuinely institution-specific extension to the stock EPrints model. Personal data observed in live records (student contact_email, advisor and creator names) is described here but no live values are stored in this repo.",
+  "x-provenance": {
+    "generated": "2026-08-30",
+    "method": "derived",
+    "source": "https://eprints.kfupm.edu.sa/cgi/export/eprint/144629/JSON/kfupm-eprint-144629.js",
+    "status": 200,
+    "x-operator": "institution"
+  },
+  "type": "array",
+  "items": { "$ref": "#/$defs/EprintRecord" },
+  "$defs": {
+    "Name": {
+      "type": "object",
+      "description": "EPrints compound name. All four parts observed; lineage and honourific were null in the sampled record.",
+      "properties": {
+        "given": { "type": ["string", "null"] },
+        "family": { "type": ["string", "null"] },
+        "lineage": { "type": ["string", "null"] },
+        "honourific": { "type": ["string", "null"] }
+      }
+    },
+    "Contributor": {
+      "type": "object",
+      "description": "A creator, advisor, co-advisor or committee member. Contains personal data.",
+      "properties": {
+        "name": { "$ref": "#/$defs/Name" }
+      }
+    },
+    "Document": {
+      "type": "object",
+      "description": "An attached document. KFUPM applies embargoes: the sampled record carried security 'staffonly' and date_embargo '2027-06-28'.",
+      "properties": {
+        "docid": { "type": "integer" },
+        "security": { "type": "string", "examples": ["staffonly", "public"] },
+        "date_embargo": { "type": ["string", "null"], "format": "date" }
+      }
+    },
+    "EprintRecord": {
+      "type": "object",
+      "required": ["eprintid", "title", "type", "uri", "eprint_status"],
+      "properties": {
+        "eprintid": { "type": "integer", "description": "Numeric identifier; the same number used in the OAI identifier oai:eprints.kfupm.edu.sa:{eprintid}." },
+        "uri": { "type": "string", "format": "uri", "description": "Canonical record URL under https://eprints.kfupm.edu.sa/id/eprint/." },
+        "title": { "type": "string" },
+        "type": { "type": "string", "examples": ["thesis"] },
+        "thesis_type": { "type": "string", "examples": ["masters"] },
+        "institution": { "type": "string", "examples": ["King Fahd University of Petroleum and Minerals"] },
+        "date": { "type": "integer", "description": "Publication year." },
+        "english_abstract": { "type": "string" },
+        "arabic_abstract": { "type": "string", "description": "KFUPM-local field. Arabic-language abstract; not part of the stock EPrints model." },
+        "creators": { "type": "array", "items": { "$ref": "#/$defs/Contributor" } },
+        "advisor": { "type": "array", "items": { "$ref": "#/$defs/Contributor" } },
+        "co_advisor": { "type": "array", "items": { "$ref": "#/$defs/Contributor" } },
+        "members": { "type": "array", "items": { "$ref": "#/$defs/Contributor" }, "description": "Committee members." },
+        "advisor_approved": { "type": "string", "examples": ["TRUE", "FALSE"] },
+        "copyright": { "type": "string", "examples": ["TRUE", "FALSE"] },
+        "contact_email": { "type": "string", "format": "email", "description": "PERSONAL DATA. Live records expose an individual student mailbox under kfupm.edu.sa. Do not redistribute." },
+        "documents": { "type": "array", "items": { "$ref": "#/$defs/Document" } },
+        "full_text_status": { "type": "string", "examples": ["restricted", "public"] },
+        "eprint_status": { "type": "string", "examples": ["archive"] },
+        "ispublished": { "type": "string", "examples": ["unpub", "pub", "inpress", "submitted"] },
+        "metadata_visibility": { "type": "string", "examples": ["show"] },
+        "divisions": { "type": "array", "items": { "type": "string" }, "description": "KFUPM division codes, e.g. 'B4'." },
+        "subjects": { "type": "array", "items": { "type": "string" }, "description": "KFUPM subject codes, e.g. 'F18', 'F7'. The same codes appear hex-encoded in OAI-PMH setSpecs." },
+        "datestamp": { "type": "string" },
+        "lastmod": { "type": "string" },
+        "status_changed": { "type": "string" },
+        "rev_number": { "type": "integer" },
+        "userid": { "type": "integer", "description": "Internal depositor account id." },
+        "dir": { "type": "string", "description": "Internal EPrints storage path; leaked by the export endpoint." }
+      }
+    }
+  }
+}

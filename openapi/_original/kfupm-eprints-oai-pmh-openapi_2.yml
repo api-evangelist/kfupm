@@ -1,0 +1,111 @@
+# x-archived-from: kfupm-eprints-oai-pmh-openapi.yml
+# x-archived-on: 2026-09-16
+# generated: '2026-08-30'
+# method: derived
+# source: live probes of https://eprints.kfupm.edu.sa/cgi/oai2 (Identify, ListMetadataFormats,
+#   ListSets, ListIdentifiers, ListRecords, GetRecord, and a badVerb error response), 2026-08-30.
+# x-operator: institution
+# NOTE: KFUPM publishes no OpenAPI for this endpoint. Every path, parameter, verb value and
+# error code below was observed in a live response; nothing here is assumed from the OAI-PMH
+# specification alone. This is the pristine pre-refine copy.
+openapi: 3.1.0
+info:
+  title: KFUPM ePrints OAI-PMH Repository Interface
+  summary: Institution-operated OAI-PMH 2.0 harvesting interface for the KFUPM ePrints repository.
+  description: >-
+    KFUPM ePrints (https://eprints.kfupm.edu.sa) is King Fahd University of Petroleum & Minerals'
+    institutional repository of theses, dissertations and research output, running EPrints 3.4.1
+    on the university's own host. It exposes a live, unauthenticated OAI-PMH 2.0 harvesting
+    interface at /cgi/oai2 with repositoryIdentifier `eprints.kfupm.edu.sa` and adminEmail
+    `eprints-system@kfupm.edu.sa`. The protocol is the Open Archives Initiative standard; the
+    deployment, the host, the identifiers and the content are the institution's.
+
+    This description was derived by probing the live endpoint. KFUPM does not publish an OpenAPI
+    for it.
+  version: '2.0'
+  contact:
+    name: KFUPM ePrints Administrator
+    email: eprints-system@kfupm.edu.sa
+    url: https://eprints.kfupm.edu.sa/
+  license:
+    name: No metadata policy declared by the repository
+    identifier: NONE
+servers:
+  - url: https://eprints.kfupm.edu.sa/cgi
+    description: KFUPM ePrints (EPrints 3.4.1) — institution-operated, no authentication
+tags:
+  - name: oai-pmh
+    description: OAI-PMH 2.0 protocol requests. All six verbs verified live 2026-08-30.
+paths:
+  /oai2:
+    get:
+      tags: [oai-pmh]
+      operationId: oaiRequest
+      summary: Issue an OAI-PMH 2.0 request
+      description: >-
+        Single OAI-PMH endpoint. The `verb` parameter selects the operation. Responses are
+        `text/xml` in the http://www.openarchives.org/OAI/2.0/ namespace. Protocol-level
+        failures are returned as HTTP 200 with an <error code="..."> element, not as an HTTP
+        error status — observed with verb=Bogus returning badVerb and badArgument.
+      parameters:
+        - name: verb
+          in: query
+          required: true
+          description: OAI-PMH verb. All six values verified against the live endpoint.
+          schema:
+            type: string
+            enum: [Identify, ListMetadataFormats, ListSets, ListIdentifiers, ListRecords, GetRecord]
+        - name: metadataPrefix
+          in: query
+          required: false
+          description: >-
+            Metadata format. Required for ListIdentifiers, ListRecords and GetRecord.
+            Formats observed live via ListMetadataFormats.
+          schema:
+            type: string
+            enum: [didl, mets, oai_bibl, oai_dc, rdf, uketd_dc]
+        - name: identifier
+          in: query
+          required: false
+          description: OAI identifier of a single record. Required for GetRecord.
+          schema:
+            type: string
+            examples: ['oai:eprints.kfupm.edu.sa:144629']
+        - name: set
+          in: query
+          required: false
+          description: >-
+            setSpec from ListSets. KFUPM encodes set specs as hex (e.g. 7374617475733D707562
+            for "Status = Published").
+          schema:
+            type: string
+        - name: from
+          in: query
+          required: false
+          description: Lower bound datestamp. Granularity YYYY-MM-DDThh:mm:ssZ.
+          schema:
+            type: string
+            format: date-time
+        - name: until
+          in: query
+          required: false
+          description: Upper bound datestamp. Granularity YYYY-MM-DDThh:mm:ssZ.
+          schema:
+            type: string
+            format: date-time
+        - name: resumptionToken
+          in: query
+          required: false
+          description: Flow-control token returned with an incomplete list response.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OAI-PMH response document. Carries either the requested payload or an
+            <error code="..."> element; both are returned with HTTP 200.
+          content:
+            text/xml:
+              schema:
+                type: string
+                contentMediaType: text/xml

@@ -1,0 +1,48 @@
+generated: '2026-08-30'
+method: probed
+source: Live probes of KFUPM hosts, 2026-08-30.
+provider: King Fahd University of Petroleum & Minerals
+providerId: kfupm
+x-operator: institution
+description: >-
+  Versioning and change posture across KFUPM's institution-operated surfaces. KFUPM publishes no
+  changelog, no deprecation policy, no status page and no API versioning scheme. Everything below
+  is observed, not stated.
+surfaces:
+  - name: KFUPM ePrints OAI-PMH
+    url: https://eprints.kfupm.edu.sa/cgi/oai2
+    versioning: >-
+      Protocol version only. Identify declares protocolVersion 2.0; the software is EPrints 3.4.1
+      per the eprints description block. There is no institution-assigned API version, no version
+      header and no versioned base path.
+    change_signal: >-
+      OAI-PMH datestamps are the only change signal. Granularity YYYY-MM-DDThh:mm:ssZ,
+      deletedRecord policy `persistent` — deletions are announced with header status="deleted",
+      so an incremental harvester can track removals. earliestDatestamp observed 2026-06-30,
+      which is very recent for a repository holding record ids above 144,000; the datestamps were
+      evidently reset by a migration.
+    deprecation_policy: none published
+    status_page: none found
+  - name: KFUPM ePrints Export & Search (JSON)
+    url: https://eprints.kfupm.edu.sa/cgi/export/eprint/{eprintid}/JSON/{filename}
+    versioning: >-
+      None. The JSON shape is whatever EPrints 3.4.1 emits, including internal fields such as
+      `dir` and `userid`. A consumer has no contract and no notice of change.
+    deprecation_policy: none published
+  - name: KFUPM Identity Federation
+    url: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
+    versioning: >-
+      SAML 2.0 metadata is versioned by its signature and validity window, and refreshed on the
+      federation's own cadence via MAEEN into eduGAIN. The OIDC discovery document carries no
+      version field.
+    change_signal: >-
+      eduGAIN records first_seen 2025-05-12 for entity 671205. Federation metadata refresh is the
+      only supported change channel; there is no KFUPM-side announcement.
+    deprecation_policy: none published
+observations:
+  - >-
+    www.kfupm.edu.sa serves no robots.txt, no sitemap.xml and no llms.txt — all three return a
+    404 with a full HTML page body.
+  - >-
+    No developer portal, no changelog, no status page and no support channel for any of these
+    surfaces was found on any kfupm.edu.sa host.

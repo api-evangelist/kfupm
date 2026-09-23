@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- generated: 2026-08-30 | method: probed | x-operator: institution
+     source: https://eprints.kfupm.edu.sa/cgi/oai2?verb=GetRecord&identifier=oai:eprints.kfupm.edu.sa:144629&metadataPrefix=oai_dc | HTTP 200 -->
+<?xml-stylesheet type='text/xsl' href='/oai2.xsl' ?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+  <responseDate>2026-08-30T19:05:22Z</responseDate>
+  <request verb="GetRecord" identifier="oai:eprints.kfupm.edu.sa:144629" metadataPrefix="oai_dc">https://eprints.kfupm.edu.sa/cgi/oai2</request>
+  <GetRecord>
+    <record>
+    <header>
+      <identifier>oai:eprints.kfupm.edu.sa:144629</identifier>
+      <datestamp>2026-06-30T08:56:32Z</datestamp>
+      <setSpec>7374617475733D756E707562</setSpec>
+      <setSpec>7375626A656374733D463138</setSpec>
+      <setSpec>7375626A656374733D4637</setSpec>
+      <setSpec>74797065733D746865736973</setSpec></header>
+    <metadata>
+      <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <dc:relation>https://eprints.kfupm.edu.sa/id/eprint/144629/</dc:relation>
+        <dc:title>Spatiotemporal and Spectral Characterization of Eeg-Based Speech in Overt and Covert Conditions</dc:title>
+        <dc:creator>Alomari, Najat</dc:creator>
+        <dc:subject>Engineering</dc:subject>
+        <dc:subject>Electrical</dc:subject>
+        <dc:date>2026</dc:date>
+        <dc:type>Thesis</dc:type>
+        <dc:type>NonPeerReviewed</dc:type>
+        <dc:format>application/pdf</dc:format>
+        <dc:language>en</dc:language>
+        <dc:identifier>https://eprints.kfupm.edu.sa/id/eprint/144629/1/Thesis_full_202317850.pdf</dc:identifier>
+        <dc:identifier>  Alomari, Najat  (2026) Spatiotemporal and Spectral Characterization of Eeg-Based Speech in Overt and Covert Conditions.  Masters thesis, King Fahd University of Petroleum and Minerals.   </dc:identifier></oai_dc:dc></metadata></record>
+  </GetRecord>
+</OAI-PMH>

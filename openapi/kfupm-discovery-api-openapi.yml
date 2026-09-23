@@ -1,0 +1,133 @@
+openapi: 3.2.0
+info:
+  title: KFUPM Identity Federation (SAML 2.0 + OpenID Connect)…
+  summary: KFUPM's own identity provider — SAML 2.0 metadata registered in eduGAIN via the Saudi federation MAEEN, plus an OpenID Connect / OAuth 2.0 authorization server.
+  description: King Fahd University of Petroleum & Minerals operates its own identity provider at sts.kfupm.edu.sa (Microsoft AD FS).
+  version: '2026-08-30'
+  contact:
+    name: King Fahd University of Petroleum & Minerals
+    url: https://www.kfupm.edu.sa/
+servers:
+- url: https://sts.kfupm.edu.sa
+  description: KFUPM AD FS identity provider — institution-operated
+tags:
+- name: Discovery
+  description: Unauthenticated metadata endpoints. All three fetched live 2026-08-30.
+paths:
+  /FederationMetadata/2007-06/FederationMetadata.xml:
+    get:
+      tags:
+      - Discovery
+      operationId: getSamlFederationMetadata
+      summary: SAML 2.0 federation metadata
+      description: Signed SAML 2.0 EntityDescriptor for entityID http://sts.kfupm.edu.sa/adfs/services/trust. Contains IDPSSODescriptor and SPSSODescriptor roles, SingleSignOnService (HTTP-Redirect and HTTP-POST) at https://sts.kfupm.edu.sa/adfs/ls/, four SingleLogoutService endpoints, 63 attributes, and protocolSupportEnumeration for SAML 2.0 and WS-Federation / WS-Trust.
+      responses:
+        '200':
+          description: Signed SAML 2.0 metadata document.
+          content:
+            application/samlmetadata+xml:
+              schema:
+                type: string
+                contentMediaType: application/samlmetadata+xml
+  /adfs/.well-known/openid-configuration:
+    get:
+      tags:
+      - Discovery
+      operationId: getOpenIdConfiguration
+      summary: OpenID Connect discovery document
+      description: OIDC discovery for issuer https://sts.kfupm.edu.sa/adfs. Declares scopes_supported [profile, allatclaims, user_impersonation, logon_cert, openid, email, vpn_cert, winhello_cert, aza], grant types including authorization_code, refresh_token, client_credentials, jwt-bearer and device_code, response types code / id_token / code id_token / id_token token / code token / code id_token token, pairwise subject types, RS256 id_token signing, and front-channel logout support.
+      responses:
+        '200':
+          description: OIDC provider configuration.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - issuer
+                - authorization_endpoint
+                - token_endpoint
+                - jwks_uri
+                properties:
+                  issuer:
+                    type: string
+                    format: uri
+                  authorization_endpoint:
+                    type: string
+                    format: uri
+                  token_endpoint:
+                    type: string
+                    format: uri
+                  userinfo_endpoint:
+                    type: string
+                    format: uri
+                  jwks_uri:
+                    type: string
+                    format: uri
+                  end_session_endpoint:
+                    type: string
+                    format: uri
+                  device_authorization_endpoint:
+                    type: string
+                    format: uri
+                  scopes_supported:
+                    type: array
+                    items:
+                      type: string
+                  grant_types_supported:
+                    type: array
+                    items:
+                      type: string
+                  response_types_supported:
+                    type: array
+                    items:
+                      type: string
+                  claims_supported:
+                    type: array
+                    items:
+                      type: string
+  /adfs/discovery/keys:
+    get:
+      tags:
+      - Discovery
+      operationId: getJwks
+      summary: JSON Web Key Set
+      description: JWKS for the issuer. Two RSA keys, alg RS256, use sig, verified live 2026-08-30.
+      responses:
+        '200':
+          description: JWKS document.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - keys
+                properties:
+                  keys:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        kty:
+                          type: string
+                        use:
+                          type: string
+                        alg:
+                          type: string
+                        kid:
+                          type: string
+  /adfs/ls/:
+    get:
+      tags:
+      - Discovery
+      operationId: samlSingleSignOn
+      summary: SAML 2.0 SingleSignOnService
+      description: SAML 2.0 SSO endpoint declared in the federation metadata for both the HTTP-Redirect and HTTP-POST bindings. Requires a SAMLRequest from a registered service provider; not exercised during profiling.
+      responses:
+        '200':
+          description: SAML response or a login interaction, depending on the request binding.
+components:
+  securitySchemes:
+    kfupmOidc:
+      type: openIdConnect
+      openIdConnectUrl: https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration

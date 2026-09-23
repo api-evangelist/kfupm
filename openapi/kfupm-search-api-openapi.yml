@@ -1,0 +1,50 @@
+openapi: 3.2.0
+info:
+  title: KFUPM ePrints Export & (JSON) Search API
+  summary: Institution-operated JSON export and search output from the KFUPM ePrints repository.
+  description: The KFUPM ePrints repository (EPrints 3.4.1, eprints.kfupm.edu.sa) serves record-level and search-result-level JSON without authentication.
+  version: 3.4.1
+  contact:
+    name: KFUPM ePrints Administrator
+    email: eprints-system@kfupm.edu.sa
+    url: https://eprints.kfupm.edu.sa/
+servers:
+- url: https://eprints.kfupm.edu.sa/cgi
+  description: KFUPM ePrints (EPrints 3.4.1) — institution-operated, no authentication
+tags:
+- name: Search
+  description: Free-text search with a machine-readable output format.
+paths:
+  /search/simple:
+    get:
+      tags:
+      - Search
+      operationId: searchSimple
+      summary: Free-text search over the repository
+      description: Free-text search. With `output=JSON` the result set is returned as application/json. Verified live with q=petroleum. Requesting `/cgi/search?...` 302-redirects here.
+      parameters:
+      - name: q
+        in: query
+        required: true
+        description: Free-text query.
+        schema:
+          type: string
+          examples:
+          - petroleum
+      - name: output
+        in: query
+        required: false
+        description: Output format. `JSON` was the value verified live.
+        schema:
+          type: string
+          examples:
+          - JSON
+      responses:
+        '200':
+          description: Search results in the requested output format.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object

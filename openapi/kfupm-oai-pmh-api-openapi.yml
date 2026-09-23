@@ -1,0 +1,96 @@
+openapi: 3.2.0
+info:
+  title: KFUPM ePrints Repository Interface Oai Pmh API
+  summary: Institution-operated OAI-PMH 2.0 harvesting interface for the KFUPM ePrints repository.
+  description: KFUPM ePrints (https://eprints.kfupm.edu.sa) is King Fahd University of Petroleum & Minerals' institutional repository of theses, dissertations and research output, running EPrints 3.4.1 on the university's own host.
+  version: '2.0'
+  contact:
+    name: KFUPM ePrints Administrator
+    email: eprints-system@kfupm.edu.sa
+    url: https://eprints.kfupm.edu.sa/
+  license:
+    name: No metadata policy declared by the repository
+    identifier: NONE
+servers:
+- url: https://eprints.kfupm.edu.sa/cgi
+  description: KFUPM ePrints (EPrints 3.4.1) — institution-operated, no authentication
+tags:
+- name: oai pmh
+  description: OAI-PMH 2.0 protocol requests. All six verbs verified live 2026-08-30.
+paths:
+  /oai2:
+    get:
+      tags:
+      - oai pmh
+      operationId: oaiRequest
+      summary: Issue an OAI-PMH 2.0 request
+      description: Single OAI-PMH endpoint. The `verb` parameter selects the operation. Responses are `text/xml` in the http://www.openarchives.org/OAI/2.0/ namespace. Protocol-level failures are returned as HTTP 200 with an element, not as an HTTP error status — observed with verb=Bogus returning badVerb and badArgument.
+      parameters:
+      - name: verb
+        in: query
+        required: true
+        description: OAI-PMH verb. All six values verified against the live endpoint.
+        schema:
+          type: string
+          enum:
+          - Identify
+          - ListMetadataFormats
+          - ListSets
+          - ListIdentifiers
+          - ListRecords
+          - GetRecord
+      - name: metadataPrefix
+        in: query
+        required: false
+        description: Metadata format. Required for ListIdentifiers, ListRecords and GetRecord. Formats observed live via ListMetadataFormats.
+        schema:
+          type: string
+          enum:
+          - didl
+          - mets
+          - oai_bibl
+          - oai_dc
+          - rdf
+          - uketd_dc
+      - name: identifier
+        in: query
+        required: false
+        description: OAI identifier of a single record. Required for GetRecord.
+        schema:
+          type: string
+          examples:
+          - oai:eprints.kfupm.edu.sa:144629
+      - name: set
+        in: query
+        required: false
+        description: setSpec from ListSets. KFUPM encodes set specs as hex (e.g. 7374617475733D707562 for "Status = Published").
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        description: Lower bound datestamp. Granularity YYYY-MM-DDThh:mm:ssZ.
+        schema:
+          type: string
+          format: date-time
+      - name: until
+        in: query
+        required: false
+        description: Upper bound datestamp. Granularity YYYY-MM-DDThh:mm:ssZ.
+        schema:
+          type: string
+          format: date-time
+      - name: resumptionToken
+        in: query
+        required: false
+        description: Flow-control token returned with an incomplete list response.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OAI-PMH response document. Carries either the requested payload or an <error code="..."> element; both are returned with HTTP 200.
+          content:
+            text/xml:
+              schema:
+                type: string
+                contentMediaType: text/xml

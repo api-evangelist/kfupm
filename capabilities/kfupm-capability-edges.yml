@@ -1,0 +1,161 @@
+slug: kfupm
+provider: King Fahd University of Petroleum & Minerals
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Education
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 14
+edges:
+- tag: ethicalReview
+  spec_file: kfupm-ethicalreview-api-openapi.yml
+  capability_id: BC-4780.30
+  capability_id_l1: BC-4780
+  capability_name: Research Ethics & Integrity Oversight
+  confidence: 0.9
+  evidence: PUT /ethical-reviews ethicalReview_create Create ethicalReview; 'A list of allowed ethical
+    review types'; schemas EthicalReview, ProjectRef, MilestoneDocument
+  reason: Operations manage ethical review records attached to research projects, which is precisely research
+    ethics oversight in a research information management system.
+- tag: impact
+  spec_file: kfupm-impact-api-openapi.yml
+  capability_id: BC-4780.60
+  capability_id_l1: BC-4780
+  capability_name: Research Impact & Assessment
+  confidence: 0.9
+  evidence: GET /impacts/allowed-impact-evidence-indicators 'A list of allowed impact evidence indicators';
+    GET /impacts/allowed-impact-categories; schemas ImpactProjectAssociation, EvidenceContactInformation
+  reason: Records of research impact with categories, levels and evidence indicators linked to projects
+    is research impact assessment (e.g. REF-style impact case studies).
+- tag: researchOutput
+  spec_file: kfupm-researchoutput-api-openapi.yml
+  capability_id: BC-4780.40
+  capability_id_l1: BC-4780
+  capability_name: Scholarly Output & Publication Management
+  confidence: 0.9
+  evidence: PUT /research-outputs researchOutput_create Create research output; "A list of allowed article
+    processing charge currencies"; "allowed contributor roles for the book anthology subtype"
+  reason: Operations manage publications and other scholarly outputs with contributor roles, book/conference
+    subtypes, open-access file licences and APCs — plainly scholarly output and publication management.
+- tag: award
+  spec_file: kfupm-award-api-openapi.yml
+  capability_id: BC-4780.20
+  capability_id_l1: BC-4780
+  capability_name: Research Grant Management
+  confidence: 0.85
+  evidence: GET /awards/allowed-awardholder-roles; 'A list of allowed funding classifications'; schemas
+    Award, AccountEntry, MilestoneReminder
+  reason: Funding awards with award holders, funding classifications and budget accounts in a research
+    information system — post-award research grant administration.
+- tag: fundingOpportunity
+  spec_file: kfupm-fundingopportunity-api-openapi.yml
+  capability_id: BC-4780.20
+  capability_id_l1: BC-4780
+  capability_name: Research Grant Management
+  confidence: 0.85
+  evidence: GET /funding-opportunities fundingOpportunity_list Lists all funding opportunities; 'allowed-classified-eligibility-types';
+    schemas FundingOpportunityAcademicDegreeEligibility, FundingOpportunityDocument
+  reason: Cataloguing of research funding opportunities with eligibility and documents is the opportunity-identification
+    front end of research grant lifecycle management.
+- tag: user
+  spec_file: kfupm-user-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /users/{uuid}/actions/reset-password user_resetPassword; POST /users/{uuid}/actions/lock;
+    PUT /users/{uuid}/roles user_update_roles_for_user Updates roles; schemas GlobalRoleAssignment, UserRoles
+  reason: Operations manage application user accounts, passwords, locking and role assignments — identity
+    and access management, not any education-domain capability.
+- tag: application
+  spec_file: kfupm-application-api-openapi.yml
+  capability_id: BC-4780.20
+  capability_id_l1: BC-4780
+  capability_name: Research Grant Management
+  confidence: 0.8
+  evidence: GET /applications/allowed-applicant-roles; 'A list of allowed budget-account classifications';
+    schemas AccountEntry, AbstractApplicantAssociation, ProjectRef
+  reason: In Pure these are research funding applications (applicant roles, budget accounts, project links),
+    i.e. the pre-award stage of research grant management — not student admissions applications.
+- tag: course
+  spec_file: kfupm-course-api-openapi.yml
+  capability_id: BC-4700
+  capability_id_l1: BC-4700
+  capability_name: Curriculum & Programme Management
+  confidence: 0.75
+  evidence: GET /courses/allowed-credit-types; 'A list of allowed role types for course lecturers on a
+    given course occurrence'; 'allowed semester types for course occurrences'
+  reason: Course records with credit types, formats and semester occurrences — academic course/module
+    definition and cataloguing. Evidence does not clearly separate design from catalogue publication,
+    so L1 only.
+- tag: studentThesis
+  spec_file: kfupm-studentthesis-api-openapi.yml
+  capability_id: BC-4780.40
+  capability_id_l1: BC-4780
+  capability_name: Scholarly Output & Publication Management
+  confidence: 0.72
+  evidence: GET /student-theses studentThesis_list Lists all student theses; 'A list of allowed document
+    embargo reasons'; 'A list of allowed document license types'; schemas SupervisorAssociation, ResearchOutputRef
+  reason: Pure is a research information management system; this surface creates and lists student theses
+    as scholarly outputs with supervisors, document versions, licences and embargoes — stewardship of
+    scholarly output/open-access records rather than student registry records.
+- tag: activity
+  spec_file: kfupm-activity-api-openapi.yml
+  capability_id: BC-4780
+  capability_id_l1: BC-4780
+  capability_name: Research & Scholarship Management
+  confidence: 0.7
+  evidence: GET /activities/allowed-consultancy-person-roles ... 'A list of allowed editorial-work activity
+    person roles'; schema ActivityPrizeAssociation, ActivityProjectAssociation
+  reason: 'Pure research information system: ''activities'' are scholarly activities (consultancy, editorial
+    work, prizes) linked to projects — research/scholarship mission management. No single L2 fits cleanly,
+    so L1 only.'
+- tag: contract
+  spec_file: kfupm-contract-api-openapi.yml
+  capability_id: BC-4780.20
+  capability_id_l1: BC-4780
+  capability_name: Research Grant Management
+  confidence: 0.7
+  evidence: schemas ContractExtended, ContractAwardAssociation, ProjectRef, MilestoneReminder, ContractDocument
+  reason: Contracts here are research contracts associated with awards and projects inside Pure, matching
+    'research grants and contracts, from opportunity identification through post-award administration'
+    rather than generic corporate contract lifecycle.
+- tag: dataSet
+  spec_file: kfupm-dataset-api-openapi.yml
+  capability_id: BC-4780.40
+  capability_id_l1: BC-4780
+  capability_name: Scholarly Output & Publication Management
+  confidence: 0.7
+  evidence: GET /data-sets/allowed-doi-access-types; schemas DataSet, OpenAccess, DataSetResearchOutputAssociation,
+    PublisherRef
+  reason: Research datasets with DOIs, open-access flags, contributor roles and links to research outputs
+    — stewardship of scholarly output including open access and persistent identifiers.
+- tag: milestone
+  spec_file: kfupm-milestone-api-openapi.yml
+  capability_id: BC-4780.20
+  capability_id_l1: BC-4780
+  capability_name: Research Grant Management
+  confidence: 0.7
+  evidence: GET /milestones/award/allowed-academic-roles 'A list of allowed academic roles for milestones
+    which have a related award'; GET /milestones/application/allowed-administrative-roles; schemas ContractRef,
+    EthicalReviewRef, MilestoneReminder
+  reason: Milestones here attach to funding applications, awards and contracts with reminders and documents,
+    i.e. pre- and post-award administration of research grants; some ambiguity as milestones are a generic
+    workflow construct.
+- tag: project
+  spec_file: kfupm-project-api-openapi.yml
+  capability_id: BC-4780.20
+  capability_id_l1: BC-4780
+  capability_name: Research Grant Management
+  confidence: 0.7
+  evidence: PUT /projects project_create Create project; schemas AwardCluster, ResearchOutputRef, "A list
+    of allowed collaborator types"
+  reason: Pure projects are research projects carrying award/funding clusters, collaborators and links
+    to research outputs, which corresponds to research grant and project administration in a university
+    research information system.

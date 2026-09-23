@@ -1,0 +1,37 @@
+generated: '2026-08-30'
+method: probed
+source: https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration (200, 2026-08-30)
+provider: King Fahd University of Petroleum & Minerals
+providerId: kfupm
+description: >-
+  OAuth 2.0 / OpenID Connect scopes advertised by KFUPM's own identity provider. Read verbatim
+  from `scopes_supported` in the institution's OIDC discovery document. These are the AD FS
+  built-in scope set; KFUPM has not published any application-specific scope beyond it, and no
+  public client-registration path was found.
+x-operator: institution
+issuer: https://sts.kfupm.edu.sa/adfs
+scopes:
+  - name: openid
+    description: Standard OpenID Connect scope; requests an ID token.
+  - name: profile
+    description: Standard OIDC scope; requests profile claims.
+  - name: email
+    description: Standard OIDC scope; requests the email claim.
+  - name: allatclaims
+    description: AD FS scope requesting that all claims be included in the access token.
+  - name: user_impersonation
+    description: AD FS scope permitting a relying party to act on behalf of the signed-in user.
+  - name: logon_cert
+    description: AD FS scope issuing a logon certificate.
+  - name: vpn_cert
+    description: AD FS scope issuing a VPN certificate.
+  - name: winhello_cert
+    description: AD FS scope issuing a Windows Hello for Business certificate.
+  - name: aza
+    description: AD FS scope used for the primary refresh / brokered authentication flow.
+claims_supported:
+  [aud, iss, iat, exp, auth_time, nonce, at_hash, c_hash, sub, upn, unique_name, pwd_url,
+   pwd_exp, mfa_auth_time, sid, nbf]
+notes: >-
+  No scope here is application-specific. KFUPM publishes no developer portal, no client
+  registration endpoint and no scope documentation; a relying party is onboarded by KFUPM IT.

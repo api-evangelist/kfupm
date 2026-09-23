@@ -64,24 +64,41 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-King Fahd University of Petroleum & Minerals (KFUPM) is a public research university in Dhahran, Saudi Arabia, ranked #101 in the QS World University Rankings 2025. KFUPM does not run a centralized public developer portal, but several institutional systems expose machine-readable interfaces — the KFUPM ePrints repository (OAI-PMH 2.0 + EPrints REST/search URLs) and the Elsevier Pure research portal (Pure Web Services REST API, authentication-gated).
+King Fahd University of Petroleum & Minerals (KFUPM) is a public research university in Dhahran, Saudi Arabia. Its programmable footprint is small and, until this re-profile, largely misattributed: 37 OpenAPI definitions catalogued here as KFUPM's were the Elsevier Pure Web Services contract (`info.title: Pure API`, `contact: pure-support@elsevier.com`, version 5.35.3-4) served from the university's Pure tenant at `pure.kfupm.edu.sa`. That contract is Elsevier's. It has been removed and the tenant relationship recorded once instead.
+
+What KFUPM genuinely operates is three surfaces on its own infrastructure, all verified live on 2026-08-30 and none of them previously in this profile.
 
 - APIs.json: https://raw.githubusercontent.com/api-evangelist/kfupm/refs/heads/main/apis.yml
 - Run with Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=kfupm-api-evangelist&utm_content=repo
 
 ## Type
 
-- Index / Consumer / 3rd-Party
+- University / Public Research University / Index / Consumer / Public
 
 ## Tags
 
-Education, Higher Education, University, Research, Open Access, Repository, Saudi Arabia, Middle East
+University, Higher Education, Education, Research, Saudi Arabia, Middle East, Identity Federation, Research Repository, Open Access, OAI-PMH, Theses, Course Catalog
 
 ## APIs
 
-- **KFUPM ePrints OAI-PMH** — OAI-PMH 2.0 harvesting for the theses and dissertations repository. Docs: https://eprints.kfupm.edu.sa/ · Base: https://eprints.kfupm.edu.sa/cgi/oai2
-- **KFUPM ePrints REST / Search** — Addressable EPrints records and public search. Docs: https://eprints.kfupm.edu.sa/ · Base: https://eprints.kfupm.edu.sa/id/eprint/
-- **KFUPM Pure Web Services API** — Elsevier Pure REST API (OpenAPI 3), authentication-gated. Docs: https://pure.kfupm.edu.sa/ · Base: https://pure.kfupm.edu.sa/ws/api/
+Every entry carries an operator. `institution` means KFUPM runs the thing the contract describes; `tenant` means KFUPM runs a deployment of somebody else's product and the contract belongs to that vendor.
+
+- **KFUPM Identity Federation (SAML 2.0 + OpenID Connect)** — `x-operator: institution`. KFUPM's own AD FS identity provider. Signed SAML 2.0 federation metadata (80 KB, entityID `http://sts.kfupm.edu.sa/adfs/services/trust`) and an OpenID Connect discovery document for issuer `https://sts.kfupm.edu.sa/adfs`, with a two-key RS256 JWKS. Registered in eduGAIN as entity 671205 by MAEEN (SA-MIF), scope `kfupm.edu.sa`. Base: https://sts.kfupm.edu.sa
+- **KFUPM ePrints OAI-PMH Repository Interface** — `x-operator: institution`. Live OAI-PMH 2.0 on a self-hosted EPrints 3.4.1 repository. All six verbs verified; six metadata formats (didl, mets, oai_bibl, oai_dc, rdf, uketd_dc). No authentication. Base: https://eprints.kfupm.edu.sa/cgi/oai2
+- **KFUPM ePrints Export & Search (JSON)** — `x-operator: institution`. Unauthenticated record-level and search-level JSON from the same repository. The record model carries a KFUPM-local `arabic_abstract` field. Base: https://eprints.kfupm.edu.sa/cgi
+- **KFUPM Elsevier Pure Web Services (tenant deployment)** — `x-operator: tenant`, vendor Elsevier. Recorded as a relationship; the contract is deliberately not saved here. Base: https://pure.kfupm.edu.sa/ws/api
+
+## Artifacts
+
+- OpenAPI (all three derived by probe — KFUPM publishes none): [openapi/](openapi/)
+- Conformance (education regime: `oai-pmh`, `saml`): [conformance/kfupm-conformance.yml](conformance/kfupm-conformance.yml)
+- Authentication: [authentication/kfupm-authentication.yml](authentication/kfupm-authentication.yml)
+- Scopes: [scopes/kfupm-scopes.yml](scopes/kfupm-scopes.yml)
+- Errors: [errors/kfupm-errors.yml](errors/kfupm-errors.yml)
+- Lifecycle: [lifecycle/kfupm-lifecycle.yml](lifecycle/kfupm-lifecycle.yml)
+- Vocabulary: [vocabulary/kfupm-vocabulary.yml](vocabulary/kfupm-vocabulary.yml)
+- JSON Schema: [json-schema/kfupm-eprints-record-schema.json](json-schema/kfupm-eprints-record-schema.json)
+- Examples (probed responses): [examples/](examples/)
 
 ## Plans / Rate Limits / FinOps
 
@@ -92,25 +109,35 @@ Education, Higher Education, University, Research, Open Access, Repository, Saud
 ## Timestamps
 
 - Created: 2026-06-03
-- Modified: 2026-06-03
+- Modified: 2026-08-30
 
 ## Common Properties
 
 - Website: https://www.kfupm.edu.sa/
-- GitHub: https://github.com/kfupm
-- Source Code (Open Source Club): https://github.com/KFUPM-OSC
+- Terms of Service: https://www.kfupm.edu.sa/terms-of-use
+- Privacy Policy: https://www.kfupm.edu.sa/privacy-policy
+- Blog: https://news.kfupm.edu.sa/
 - LinkedIn: https://www.linkedin.com/school/kfupm/
-- Repository (ePrints): https://eprints.kfupm.edu.sa/
-- Research Portal (Pure): https://pure.kfupm.edu.sa/
+- Identity Federation: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
+- Research Repository (ePrints): https://eprints.kfupm.edu.sa/
+- Research Portal (Elsevier Pure tenant): https://pure.kfupm.edu.sa/
+- Course Catalog: https://registrar.kfupm.edu.sa/courses-classes/course-offering1/
+- Library Catalog: https://library.kfupm.edu.sa/
+- AI Tooling (AI+X): https://www.kfupm.edu.sa/about-us/discover/ai-x
+- GitHub Organization (student Open Source Club): https://github.com/KFUPM-OSC
 
 ## Notes
 
-- No centralized public developer portal was found for KFUPM.
-- ePrints OAI-PMH was verified live (Identify returns repositoryName "KFUPM ePrints", protocol 2.0).
-- The Pure Web Services API exists but is authentication-gated (versioned endpoint returns HTTP 401); it is not an open public API.
-- The github.com/kfupm organization exists but currently has no public repositories.
+- KFUPM publishes no developer portal, no API documentation, no OpenAPI, no changelog, no status page, no `robots.txt`, no `sitemap.xml` and no `llms.txt` on its own domain.
+- The identity federation surface is the significant find: an institution-operated SAML 2.0 IdP with published metadata and an OIDC discovery document, registered in eduGAIN via the Saudi federation MAEEN. It had never been catalogued.
+- The ePrints OAI-PMH `Identify` response declares no metadata, data or submission policy — it still carries the EPrints defaults, so reuse rights for harvested metadata are undeclared.
+- OAI-PMH protocol errors are returned with HTTP 200 and an `<error code>` element; a harvester reading only the HTTP status will treat a failed request as a success.
+- The registrar course offering system is institution-operated but answers only an HTML form POST — no JSON, no machine-readable format.
+- `library.kfupm.edu.sa` is live behind a Cloudflare bot challenge (403 to non-browser clients). Live, not dead; machine-unreadable.
+- The `github.com/kfupm` organization has zero public repositories, no description and has not been touched since 2019. Ownership by the university is unevidenced, so it was dropped as a pointer.
 - The LinkedIn school page returns HTTP 999 to automated probes (bot-block); the page exists in a browser.
-- No endpoints were fabricated; only confirmed URLs are cataloged.
+- The ePrints JSON export exposes personal data — depositor `contact_email`, advisor and committee names — and internal EPrints fields (`dir`, `userid`). No live personal values are stored in this repo.
+- No endpoints were fabricated. The three OpenAPI descriptions here are marked `method: derived` and every path, parameter and error code in them was observed in a live response.
 
 ## Maintainers
 

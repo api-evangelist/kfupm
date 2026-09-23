@@ -1,0 +1,59 @@
+openapi: 3.2.0
+info:
+  title: KFUPM Identity Federation (SAML 2.0 + OpenID Connect)…
+  summary: KFUPM's own identity provider — SAML 2.0 metadata registered in eduGAIN via the Saudi federation MAEEN, plus an OpenID Connect / OAuth 2.0 authorization server.
+  description: King Fahd University of Petroleum & Minerals operates its own identity provider at sts.kfupm.edu.sa (Microsoft AD FS).
+  version: '2026-08-30'
+  contact:
+    name: King Fahd University of Petroleum & Minerals
+    url: https://www.kfupm.edu.sa/
+servers:
+- url: https://sts.kfupm.edu.sa
+  description: KFUPM AD FS identity provider — institution-operated
+tags:
+- name: OAuth2
+  description: OAuth 2.0 / OpenID Connect endpoints as declared by KFUPM's own discovery document.
+paths:
+  /adfs/oauth2/authorize/:
+    get:
+      tags:
+      - OAuth2
+      operationId: oauthAuthorize
+      summary: OAuth 2.0 authorization endpoint
+      description: Declared as `authorization_endpoint` by KFUPM's OIDC discovery document. Requires a registered client; not exercised during profiling.
+      responses:
+        '302':
+          description: Redirect carrying an authorization code or an error.
+  /adfs/oauth2/token/:
+    post:
+      tags:
+      - OAuth2
+      operationId: oauthToken
+      summary: OAuth 2.0 token endpoint
+      description: 'Declared as `token_endpoint` by KFUPM''s OIDC discovery document. Client authentication methods declared: client_secret_post, client_secret_basic, private_key_jwt, windows_client_authentication. Requires a registered client; not exercised.'
+      responses:
+        '200':
+          description: Token response.
+          content:
+            application/json:
+              schema:
+                type: object
+  /adfs/userinfo:
+    get:
+      tags:
+      - OAuth2
+      operationId: oauthUserinfo
+      summary: OpenID Connect UserInfo endpoint
+      description: Declared as `userinfo_endpoint` by KFUPM's OIDC discovery document. Requires a bearer access token; not exercised.
+      responses:
+        '200':
+          description: UserInfo claims.
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  securitySchemes:
+    kfupmOidc:
+      type: openIdConnect
+      openIdConnectUrl: https://sts.kfupm.edu.sa/adfs/.well-known/openid-configuration
