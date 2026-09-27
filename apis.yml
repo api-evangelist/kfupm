@@ -198,8 +198,8 @@ apis:
 - aid: kfupm:kfupm-oai-pmh-api
   name: King Fahd University of Petroleum & Minerals Oai Pmh API
   description: OAI-PMH 2.0 protocol requests. All six verbs verified live 2026-08-30.
-  humanURL: https://www.kfupm.edu.sa/
-  baseURL: https://sts.kfupm.edu.sa
+  humanURL: https://eprints.kfupm.edu.sa/
+  baseURL: https://eprints.kfupm.edu.sa/cgi/oai2
   tags:
   - OAI-PMH
   tags_raw:
