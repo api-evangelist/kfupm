@@ -316,6 +316,9 @@ apis:
   - type: JSONSchema
     url: json-schema/kfupm-eprints-record-schema.json
 common:
+  - type: CapabilityMap
+    url: capabilities/kfupm-capability-edges.yml
+    name: King Fahd University of Petroleum & Minerals Business Capability Map
   - type: Website
     url: https://www.kfupm.edu.sa/
   - type: TermsOfService

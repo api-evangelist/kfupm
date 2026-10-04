@@ -4,6 +4,7 @@ generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
 - Education
+- Software & Technology
 min_confidence: 0.7
 capability_model:
   source: https://github.com/vincentmakes/turbo-ea-capabilities
@@ -11,7 +12,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 14
+edge_count: 16
 edges:
 - tag: ethicalReview
   spec_file: kfupm-ethicalreview-api-openapi.yml
@@ -43,6 +44,15 @@ edges:
     processing charge currencies"; "allowed contributor roles for the book anthology subtype"
   reason: Operations manage publications and other scholarly outputs with contributor roles, book/conference
     subtypes, open-access file licences and APCs — plainly scholarly output and publication management.
+- tag: OAuth2
+  spec_file: kfupm-oauth2-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /adfs/oauth2/authorize/  oauthAuthorize  OAuth 2.0 authorization endpoint
+  reason: Authorize, token and UserInfo endpoints of an AD FS identity provider — authentication and access
+    token issuance, which is Identity & Access Management.
 - tag: award
   spec_file: kfupm-award-api-openapi.yml
   capability_id: BC-4780.20
@@ -73,6 +83,16 @@ edges:
     PUT /users/{uuid}/roles user_update_roles_for_user Updates roles; schemas GlobalRoleAssignment, UserRoles
   reason: Operations manage application user accounts, passwords, locking and role assignments — identity
     and access management, not any education-domain capability.
+- tag: Discovery
+  spec_file: kfupm-discovery-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: GET /adfs/.well-known/openid-configuration  getOpenIdConfiguration  OpenID Connect discovery
+    document
+  reason: '''Discovery'' here is identity-provider metadata (SAML federation metadata, OIDC discovery,
+    JWKS, SSO endpoint) from an AD FS deployment — federation/SSO, i.e. Identity & Access Management.'
 - tag: application
   spec_file: kfupm-application-api-openapi.yml
   capability_id: BC-4780.20
