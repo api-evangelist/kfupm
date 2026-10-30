@@ -1,4 +1,4 @@
-# King Fahd University of Petroleum & Minerals (kfupm)
+# King Fahd University of Petroleum & Minerals
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,81 +64,135 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-King Fahd University of Petroleum & Minerals (KFUPM) is a public research university in Dhahran, Saudi Arabia. Its programmable footprint is small and, until this re-profile, largely misattributed: 37 OpenAPI definitions catalogued here as KFUPM's were the Elsevier Pure Web Services contract (`info.title: Pure API`, `contact: pure-support@elsevier.com`, version 5.35.3-4) served from the university's Pure tenant at `pure.kfupm.edu.sa`. That contract is Elsevier's. It has been removed and the tenant relationship recorded once instead.
+King Fahd University of Petroleum & Minerals (KFUPM) is a public research university in Dhahran, Saudi Arabia. Its programmable footprint is small, and most of what previously appeared in this profile was not its own: 37 OpenAPI definitions attributed to KFUPM here were the Elsevier Pure Web Services contract (info.title "Pure API", contact pure-support@elsevier.com, version 5.35.3-4) served from the university's Pure tenant at pure.kfupm.edu.sa. That contract is Elsevier's and has been removed; the tenant relationship is recorded instead. What KFUPM genuinely operates is three surfaces on its own infrastructure. Its identity provider at sts.kfupm.edu.sa publishes signed SAML 2.0 federation metadata and an OpenID Connect discovery document, and is registered in eduGAIN through MAEEN, the Saudi identity federation, with scope kfupm.edu.sa — an institution-operated machine-readable surface by definition. The KFUPM ePrints repository (EPrints 3.4.1) serves a live, unauthenticated OAI-PMH 2.0 harvesting interface with six working verbs and six metadata formats, plus record-level and search-level JSON export whose record model carries a KFUPM-local `arabic_abstract` field. The registrar publishes a live course offering system, but it answers only an HTML form POST and returns no machine-readable format. There is no central developer portal, no API documentation, no changelog, no status page, no robots.txt, no sitemap and no llms.txt on the university's own domain. The library discovery surface sits behind a Cloudflare bot challenge. KFUPM does not publish an OpenAPI for anything it operates; the three descriptions in this repo were derived by probing the live endpoints.
 
-What KFUPM genuinely operates is three surfaces on its own infrastructure, all verified live on 2026-08-30 and none of them previously in this profile.
+**Areas:** University · Higher Education · Education · Research · Saudi Arabia · Middle East · Identity Federation · Research Repository · Open Access · OAI-PMH · Theses · Course Catalog
 
-- APIs.json: https://raw.githubusercontent.com/api-evangelist/kfupm/refs/heads/main/apis.yml
-- Run with Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=kfupm-api-evangelist&utm_content=repo
+## King Fahd University of Petroleum & Minerals on APIs.io
 
-## Type
+Everything profiled for King Fahd University of Petroleum & Minerals is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/kfupm/](https://apis.io/providers/kfupm/)** — or go straight to one of the APIs or properties below.
 
-- University / Public Research University / Index / Consumer / Public
+### APIs (6)
 
-## Tags
+- [KFUPM Elsevier Pure Web Services (tenant deployment)](https://apis.io/apis/kfupm/pure-tenant/) — KFUPM runs an Elsevier Pure research information system at pure.kfupm.edu.sa and its Pure Web Services REST API is reachable at /ws/api, authenticated with…
+- [King Fahd University of Petroleum & Minerals Discovery API](https://apis.io/apis/kfupm/kfupm-discovery-api/) — Unauthenticated metadata endpoints. All three fetched live 2026-08-30.
+- [King Fahd University of Petroleum & Minerals Export API](https://apis.io/apis/kfupm/kfupm-export-api/) — Record-level export in a named format.
+- [King Fahd University of Petroleum & Minerals Oai Pmh API](https://apis.io/apis/kfupm/kfupm-oai-pmh-api/) — OAI-PMH 2.0 protocol requests. All six verbs verified live 2026-08-30.
+- [King Fahd University of Petroleum & Minerals Search API](https://apis.io/apis/kfupm/kfupm-search-api/) — Free-text search with a machine-readable output format.
+- [King Fahd University of Petroleum & Minerals Oauth2 API](https://apis.io/apis/kfupm/kfupm-oauth2-api/) — OAuth 2.0 / OpenID Connect endpoints as declared by KFUPM's own discovery document.
 
-University, Higher Education, Education, Research, Saudi Arabia, Middle East, Identity Federation, Research Repository, Open Access, OAI-PMH, Theses, Course Catalog
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Every entry carries an operator. `institution` means KFUPM runs the thing the contract describes; `tenant` means KFUPM runs a deployment of somebody else's product and the contract belongs to that vendor.
+#### JSON Schema (1)
 
-- **KFUPM Identity Federation (SAML 2.0 + OpenID Connect)** — `x-operator: institution`. KFUPM's own AD FS identity provider. Signed SAML 2.0 federation metadata (80 KB, entityID `http://sts.kfupm.edu.sa/adfs/services/trust`) and an OpenID Connect discovery document for issuer `https://sts.kfupm.edu.sa/adfs`, with a two-key RS256 JWKS. Registered in eduGAIN as entity 671205 by MAEEN (SA-MIF), scope `kfupm.edu.sa`. Base: https://sts.kfupm.edu.sa
-- **KFUPM ePrints OAI-PMH Repository Interface** — `x-operator: institution`. Live OAI-PMH 2.0 on a self-hosted EPrints 3.4.1 repository. All six verbs verified; six metadata formats (didl, mets, oai_bibl, oai_dc, rdf, uketd_dc). No authentication. Base: https://eprints.kfupm.edu.sa/cgi/oai2
-- **KFUPM ePrints Export & Search (JSON)** — `x-operator: institution`. Unauthenticated record-level and search-level JSON from the same repository. The record model carries a KFUPM-local `arabic_abstract` field. Base: https://eprints.kfupm.edu.sa/cgi
-- **KFUPM Elsevier Pure Web Services (tenant deployment)** — `x-operator: tenant`, vendor Elsevier. Recorded as a relationship; the contract is deliberately not saved here. Base: https://pure.kfupm.edu.sa/ws/api
+The data models the API reads and writes.
 
-## Artifacts
+- [KFUPM ePrints Record](https://apis.io/schemas/kfupm/kfupm-eprints-record/)
 
-- OpenAPI (all three derived by probe — KFUPM publishes none): [openapi/](openapi/)
-- Conformance (education regime: `oai-pmh`, `saml`): [conformance/kfupm-conformance.yml](conformance/kfupm-conformance.yml)
-- Authentication: [authentication/kfupm-authentication.yml](authentication/kfupm-authentication.yml)
-- Scopes: [scopes/kfupm-scopes.yml](scopes/kfupm-scopes.yml)
-- Errors: [errors/kfupm-errors.yml](errors/kfupm-errors.yml)
-- Lifecycle: [lifecycle/kfupm-lifecycle.yml](lifecycle/kfupm-lifecycle.yml)
-- Vocabulary: [vocabulary/kfupm-vocabulary.yml](vocabulary/kfupm-vocabulary.yml)
-- JSON Schema: [json-schema/kfupm-eprints-record-schema.json](json-schema/kfupm-eprints-record-schema.json)
-- Examples (probed responses): [examples/](examples/)
+#### Vocabulary (1)
 
-## Plans / Rate Limits / FinOps
+The provider's domain terms, defined.
 
-- Plans & Pricing: [plans/kfupm-plans-pricing.yml](plans/kfupm-plans-pricing.yml)
-- Rate Limits: [rate-limits/kfupm-rate-limits.yml](rate-limits/kfupm-rate-limits.yml)
-- FinOps: [finops/kfupm-finops.yml](finops/kfupm-finops.yml)
+- [KFUPM Pure Web Services Vocabulary](https://apis.io/vocabularies/kfupm/kfupm-vocabulary/)
 
-## Timestamps
+#### Examples (1)
 
-- Created: 2026-06-03
-- Modified: 2026-08-30
+Example requests and responses.
 
-## Common Properties
+- [Kfupm Sts Openid Configuration](https://apis.io/examples/kfupm/kfupm-sts-openid-configuration/)
 
-- Website: https://www.kfupm.edu.sa/
-- Terms of Service: https://www.kfupm.edu.sa/terms-of-use
-- Privacy Policy: https://www.kfupm.edu.sa/privacy-policy
-- Blog: https://news.kfupm.edu.sa/
-- LinkedIn: https://www.linkedin.com/school/kfupm/
-- Identity Federation: https://sts.kfupm.edu.sa/FederationMetadata/2007-06/FederationMetadata.xml
-- Research Repository (ePrints): https://eprints.kfupm.edu.sa/
-- Research Portal (Elsevier Pure tenant): https://pure.kfupm.edu.sa/
-- Course Catalog: https://registrar.kfupm.edu.sa/courses-classes/course-offering1/
-- Library Catalog: https://library.kfupm.edu.sa/
-- AI Tooling (AI+X): https://www.kfupm.edu.sa/about-us/discover/ai-x
-- GitHub Organization (student Open Source Club): https://github.com/KFUPM-OSC
+#### Security (2)
 
-## Notes
+Authentication, trust centre, and vulnerability disclosure.
 
-- KFUPM publishes no developer portal, no API documentation, no OpenAPI, no changelog, no status page, no `robots.txt`, no `sitemap.xml` and no `llms.txt` on its own domain.
-- The identity federation surface is the significant find: an institution-operated SAML 2.0 IdP with published metadata and an OIDC discovery document, registered in eduGAIN via the Saudi federation MAEEN. It had never been catalogued.
-- The ePrints OAI-PMH `Identify` response declares no metadata, data or submission policy — it still carries the EPrints defaults, so reuse rights for harvested metadata are undeclared.
-- OAI-PMH protocol errors are returned with HTTP 200 and an `<error code>` element; a harvester reading only the HTTP status will treat a failed request as a success.
-- The registrar course offering system is institution-operated but answers only an HTML form POST — no JSON, no machine-readable format.
-- `library.kfupm.edu.sa` is live behind a Cloudflare bot challenge (403 to non-browser clients). Live, not dead; machine-unreadable.
-- The `github.com/kfupm` organization has zero public repositories, no description and has not been touched since 2019. Ownership by the university is unevidenced, so it was dropped as a pointer.
-- The LinkedIn school page returns HTTP 999 to automated probes (bot-block); the page exists in a browser.
-- The ePrints JSON export exposes personal data — depositor `contact_email`, advisor and committee names — and internal EPrints fields (`dir`, `userid`). No live personal values are stored in this repo.
-- No endpoints were fabricated. The three OpenAPI descriptions here are marked `method: derived` and every path, parameter and error code in them was observed in a live response.
+- [Kfupm Authentication](https://apis.io/security/kfupm/kfupm-authentication/)
+- [Kfupm Domain Security](https://apis.io/security/kfupm/kfupm-domain-security/)
 
-## Maintainers
+#### OAuth scopes (1)
 
-- Kin Lane — kin@apievangelist.com
+The permissions the API asks for.
+
+- [Kfupm Scopes](https://apis.io/scopes/kfupm/kfupm-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Kfupm Plans Pricing](https://apis.io/plans/kfupm/kfupm-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Kfupm Rate Limits](https://apis.io/rate-limits/kfupm/kfupm-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Kfupm Finops](https://apis.io/finops/kfupm/kfupm-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.kfupm.edu.sa/)
+- [Blog](https://news.kfupm.edu.sa/)
+- [Terms of service](https://www.kfupm.edu.sa/terms-of-use)
+- [Privacy policy](https://www.kfupm.edu.sa/privacy-policy)
+- [GitHub](https://github.com/KFUPM-OSC)
+
+## API Evangelist rating
+
+**Kin Score 32.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 48.5 |
+| Contract governance | 3.8 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 26.3 |
+
+**Agent readiness 22.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 34.3** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/kfupm/](https://apis.io/providers/kfupm/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for King Fahd University of Petroleum & Minerals: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/kfupm/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
